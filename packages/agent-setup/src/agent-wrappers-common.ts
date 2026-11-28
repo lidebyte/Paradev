@@ -227,6 +227,21 @@ export function getWrapperPath(binaryName: string): string {
 	return path.join(getBinDir(), binaryName);
 }
 
+function buildExitReportBlock(): string {
+	return `if [ -n "$_superset_owns_launch" ] && [ -z "$_superset_skip_launch_report" ] \\
+  && [ -n "$SUPERSET_TERMINAL_ID" ] && [ -n "$SUPERSET_HOME_DIR" ] \\
+  && [ -x "$SUPERSET_HOME_DIR/${MANAGED_NOTIFY_RELATIVE_PATH}" ]; then
+  "$REAL_BIN" "$@"
+  _superset_status=$?
+  if [ "$_superset_status" -lt 128 ]; then
+    "$SUPERSET_HOME_DIR/${MANAGED_NOTIFY_RELATIVE_PATH}" '{"hook_event_name":"SessionEnd"}' >/dev/null 2>&1 </dev/null || true
+  fi
+  exit "$_superset_status"
+fi
+
+`;
+}
+
 export interface BuildWrapperScriptOptions {
 	/**
 	 * `BuiltinAgentId` for the wrapped binary (e.g. "claude", "codex"). When
@@ -243,6 +258,13 @@ export interface BuildWrapperScriptOptions {
 	 */
 	agentId?: string;
 	beforeLaunch?: string;
+	/**
+	 * For a harness with no session-end hook: run it as a child and report
+	 * its exit, so a session quit in the middle of a turn does not stay
+	 * "working". A signal death is not reported, which keeps a session that
+	 * died with its pty a resume candidate.
+	 */
+	reportExit?: boolean;
 }
 
 /**
@@ -292,11 +314,13 @@ export function buildWrapperScript(
 		? `if [ -z "$SUPERSET_AGENT_ID" ]; then
 export SUPERSET_AGENT_ID="${options.agentId}"
 export SUPERSET_AGENT_LAUNCH_ID="$$-$(date +%s)"
+_superset_owns_launch="1"
 
 ${buildLaunchReportBlock()}fi
 
 `
 		: "";
+	const exitReport = options.reportExit ? buildExitReportBlock() : "";
 	return `#!/bin/bash
 ${WRAPPER_MARKER}
 # Superset wrapper for ${binaryName}
@@ -308,7 +332,7 @@ if [ -z "$REAL_BIN" ]; then
   exit 127
 fi
 
-${options.beforeLaunch ?? ""}${identity}${execLine}
+${options.beforeLaunch ?? ""}${identity}${exitReport}${execLine}
 `;
 }
 

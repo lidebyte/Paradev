@@ -26,7 +26,7 @@ interface Scenario {
  * Builds an isolated scenario: a fake agent binary on PATH, a fake
  * notify.sh that records its payload, and a generated wrapper for it.
  */
-function setupScenario(binaryBody: string): Scenario {
+function setupScenario(binaryBody: string, reportExit = false): Scenario {
 	const root = mkdtempSync(path.join(tmpdir(), "wrapper-launch-report-"));
 	const binDir = path.join(root, "bin");
 	const supersetHome = path.join(root, "superset-home");
@@ -51,6 +51,7 @@ function setupScenario(binaryBody: string): Scenario {
 		wrapperPath,
 		buildWrapperScript("testagent", `exec "$REAL_BIN" "$@"`, {
 			agentId: "testagent",
+			reportExit,
 		}),
 		0o755,
 	);
@@ -62,7 +63,7 @@ async function runWrapper(
 	scenario: Scenario,
 	args: string[],
 	envOverrides: Record<string, string> = {},
-): Promise<void> {
+): Promise<number> {
 	const proc = Bun.spawn({
 		cmd: ["bash", scenario.wrapperPath, ...args],
 		env: {
@@ -79,7 +80,7 @@ async function runWrapper(
 		stdout: "ignore",
 		stderr: "ignore",
 	});
-	await proc.exited;
+	return proc.exited;
 }
 
 function readNotifyLog(scenario: Scenario): string {
@@ -154,5 +155,31 @@ describe("wrapper launch report", () => {
 			withAgent.indexOf('{"hook_event_name":"SessionStart"}'),
 		).toBeLessThan(withAgent.indexOf('exec "$REAL_BIN"'));
 		expect(withoutAgent).not.toContain("SessionStart");
+	});
+
+	it("reports the exit of a harness that has no session-end hook", async () => {
+		const quit = setupScenario("exit 3", true);
+		const killed = setupScenario("kill -TERM $$", true);
+		const nested = setupScenario("exit 0", true);
+		const version = setupScenario("exit 0", true);
+		const outsideParadev = setupScenario("exit 0", true);
+
+		const [quitStatus, killedStatus] = await Promise.all([
+			runWrapper(quit, ["chat"]),
+			runWrapper(killed, ["chat"]),
+			runWrapper(nested, ["chat"], { SUPERSET_AGENT_ID: "claude" }),
+			runWrapper(version, ["--version"]),
+			runWrapper(outsideParadev, ["chat"], { SUPERSET_TERMINAL_ID: "" }),
+		]);
+
+		expect(quitStatus).toBe(3);
+		expect(readNotifyLog(quit)).toBe(
+			'testagent|{"hook_event_name":"SessionEnd"}\n',
+		);
+		expect(killedStatus).toBe(143);
+		expect(readNotifyLog(killed)).toBe("");
+		expect(readNotifyLog(nested)).toBe("");
+		expect(readNotifyLog(version)).toBe("");
+		expect(readNotifyLog(outsideParadev)).toBe("");
 	});
 });

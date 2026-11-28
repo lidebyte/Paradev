@@ -78,6 +78,9 @@ export function removeAgyManagedHooks(): void {
 export function createAgyWrapper(): void {
 	createWrapper(
 		"agy",
-		buildWrapperScript("agy", 'exec "$REAL_BIN" "$@"', { agentId: "agy" }),
+		buildWrapperScript("agy", 'exec "$REAL_BIN" "$@"', {
+			agentId: "agy",
+			reportExit: true,
+		}),
 	);
 }
