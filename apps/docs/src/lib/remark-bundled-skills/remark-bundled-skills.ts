@@ -28,7 +28,7 @@ export function bundledSkillsTable(
 			row({ type: "text", value: "Skill" }, "What it does"),
 			...skills.map((skill) =>
 				row(
-					{ type: "inlineCode", value: `superset:${skill.name}` },
+					{ type: "inlineCode", value: `paradev:${skill.name}` },
 					skill.description,
 				),
 			),

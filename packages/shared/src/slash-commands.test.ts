@@ -105,4 +105,47 @@ describe("foldLegacyPluginCommands", () => {
 			{ command: { name: "superset:browser" }, legacyAliases: [] },
 		]);
 	});
+
+	it("folds a renamed entry into its new name", () => {
+		const folded = foldLegacyPluginCommands([
+			{ name: "paradev:paradev-automation" },
+			{ name: "superset:superset-automation" },
+		]);
+		expect(folded).toEqual([
+			{
+				command: { name: "paradev:paradev-automation" },
+				legacyAliases: ["superset:superset-automation"],
+			},
+		]);
+	});
+
+	it("folds the old automation name into paradev:superset-automation from an older build", () => {
+		const folded = foldLegacyPluginCommands([
+			{ name: "paradev:superset-automation" },
+			{ name: "superset:superset-automation" },
+		]);
+		expect(folded).toEqual([
+			{
+				command: { name: "paradev:superset-automation" },
+				legacyAliases: ["superset:superset-automation"],
+			},
+		]);
+	});
+
+	it("folds a $superset-x skill into $paradev-x", () => {
+		const folded = foldLegacyPluginCommands([
+			{ name: "paradev-orchestrate" },
+			{ name: "superset-orchestrate" },
+			{ name: "superset-dev:orchestrate" },
+			{ name: "paradev-dev:orchestrate" },
+		]);
+		expect(folded).toEqual([
+			{
+				command: { name: "paradev-orchestrate" },
+				legacyAliases: ["superset-orchestrate"],
+			},
+			{ command: { name: "superset-dev:orchestrate" }, legacyAliases: [] },
+			{ command: { name: "paradev-dev:orchestrate" }, legacyAliases: [] },
+		]);
+	});
 });

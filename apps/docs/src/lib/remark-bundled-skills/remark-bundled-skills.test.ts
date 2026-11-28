@@ -18,7 +18,7 @@ test("replaces the placeholder with a row per bundled skill", () => {
 	const names = table.children
 		.slice(1)
 		.map((row) => row.children[0]?.children[0]?.value);
-	expect(names).toContain("superset:orchestrate");
+	expect(names).toContain("paradev:orchestrate");
 	expect(names.length).toBeGreaterThan(10);
 });
 

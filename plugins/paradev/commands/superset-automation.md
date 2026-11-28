@@ -54,7 +54,7 @@ Render as a table: RUN ID, STATUS, SCHEDULED, DISPATCHED, HOST. Statuses to know
 paradev automations run "<id-or-slug>" --json
 ```
 
-Print the new run id and tell the user to use `/superset-automation <id> logs` (or just ask) to inspect the result.
+Print the new run id and tell the user to run this command again with `<id> logs` (or just ask) to inspect the result.
 
 ## Report
 

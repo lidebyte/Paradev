@@ -31,18 +31,20 @@ Or, in Claude Code, via the plugin marketplace:
 
 You usually don't invoke them; agents pick the right skill from context:
 
-- "report this bug to the Paradev team" → `superset:feedback`
-- "what did my agents do overnight?" → `superset:standup`
-- "run these three refactors in parallel" → `superset:orchestrate`
-- "open localhost:3000 and click through the signup flow" → `superset:browser`
-- "open the desktop app and change its settings" → `superset:computer`
-- "split this and run the tests on the right" → `superset:panes`
+- "report this bug to the Paradev team" → `paradev:feedback`
+- "what did my agents do overnight?" → `paradev:standup`
+- "run these three refactors in parallel" → `paradev:orchestrate`
+- "open localhost:3000 and click through the signup flow" → `paradev:browser`
+- "open the desktop app and change its settings" → `paradev:computer`
+- "split this and run the tests on the right" → `paradev:panes`
 
-To invoke one explicitly: `/superset:feedback` in Claude Code, or `/superset/feedback` in the in-app chat. Other agents that read skills (Codex, Kimi, Vibe, Grok) see the same skills with a `superset-` prefix.
+To invoke one explicitly: `/paradev:feedback` in Claude Code, or `/paradev/feedback` in the in-app chat. Other agents that read skills (Codex, Kimi, Vibe, Grok) see the same skills with a `paradev-` prefix.
+
+The old names still work: `superset:feedback` and `superset-feedback` stay as aliases, so saved prompts and automations keep running. A plugin installed from the Claude Code marketplace above is still named `superset`, so there its skills answer to `superset:` only.
 
 ## How They're Delivered
 
-At launch, the desktop app writes managed copies into the standard discovery locations: `~/.claude/skills/superset/` (loaded by Claude Code as a plugin, hence the `superset:` namespace), `~/.agents/skills/`, and `~/.agents/commands/`.
+At launch, the desktop app writes managed copies into the standard discovery locations: `~/.claude/skills/paradev/` (loaded by Claude Code as a plugin, hence the `paradev:` namespace) with its old-name twin `~/.claude/skills/superset/`, `~/.agents/skills/`, and `~/.agents/commands/`.
 
 - **Your files are never touched.** Managed files carry a marker; a skill or command you authored at the same path is left alone.
 - **Updates are automatic.** Managed skills refresh on every app launch, and ones that no longer ship are cleaned up.

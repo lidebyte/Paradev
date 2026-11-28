@@ -121,14 +121,23 @@ export function sortSlashCommandMatches<
 		.map((item) => item.command);
 }
 
-const LEGACY_PLUGIN_PREFIX = "superset:";
-const CURRENT_PLUGIN_PREFIX = "paradev:";
+/** Old and new prefixes: Claude plugin entries, then `$` skills (Codex). */
+const RENAMED_PREFIXES = [
+	["superset:", "paradev:"],
+	["superset-", "paradev-"],
+] as const;
+
+/** Bundled plugin entries whose `paradev:` name differs from the old one. */
+export const RENAMED_PLUGIN_ENTRIES: Readonly<Record<string, string>> = {
+	"superset-automation": "paradev-automation",
+};
 
 /**
- * Claude sees the bundled plugin twice, as `paradev:<x>` and the old
- * `superset:<x>`. Menus show one entry: the old name becomes an alias of the
- * new one, so typing it still finds the entry. A `superset:` entry with no
- * `paradev:` twin (a host from before the rename) stays as it is.
+ * Agents see the bundled skills twice, under the new name and the old one
+ * (`paradev:<x>` and `superset:<x>`, or `$paradev-<x>` and `$superset-<x>`).
+ * Menus show one entry: the old name becomes an alias of the new one, so
+ * typing it still finds the entry. An old name with no new twin (a host from
+ * before the rename) stays as it is.
  */
 export function foldLegacyPluginCommands<T extends { name: string }>(
 	commands: T[],
@@ -136,9 +145,16 @@ export function foldLegacyPluginCommands<T extends { name: string }>(
 	const names = new Set(commands.map((command) => command.name));
 	const legacyOf = new Map<string, string>();
 	for (const { name } of commands) {
-		if (!name.startsWith(LEGACY_PLUGIN_PREFIX)) continue;
-		const current = `${CURRENT_PLUGIN_PREFIX}${name.slice(LEGACY_PLUGIN_PREFIX.length)}`;
-		if (names.has(current)) legacyOf.set(current, name);
+		for (const [legacyPrefix, currentPrefix] of RENAMED_PREFIXES) {
+			if (!name.startsWith(legacyPrefix)) continue;
+			const entry = name.slice(legacyPrefix.length);
+			if (legacyPrefix === "superset-" && entry.includes(":")) continue;
+			const current = [RENAMED_PLUGIN_ENTRIES[entry], entry]
+				.filter((candidate) => candidate !== undefined)
+				.map((candidate) => `${currentPrefix}${candidate}`)
+				.find((candidate) => names.has(candidate));
+			if (current) legacyOf.set(current, name);
+		}
 	}
 	const folded = new Set(legacyOf.values());
 	return commands
