@@ -12,6 +12,10 @@ import type { ReactNode } from "react";
 import { useState } from "react";
 import { PluginIcon } from "renderer/components/PluginIcon";
 import { useTranscriptPlugins } from "../../providers/TranscriptPluginsProvider";
+import {
+	paradevToolChips,
+	paradevToolLabel,
+} from "../../utils/paradevToolDisplay";
 import { toolCallCommand, unwrapShellCommand } from "../../utils/shellIntent";
 import { toolTitle } from "../../utils/toolTitle";
 import { ToolContentList } from "../ToolContentList";
@@ -44,6 +48,8 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 		t,
 		Boolean(plugin),
 	);
+	const chips = paradevToolChips(item);
+	const triggerLabel = paradevToolLabel(item) ? label : item.title;
 	const intentCommand =
 		intent && !item.content.some((content) => content.type === "terminal")
 			? toolCallCommand(item)
@@ -98,7 +104,7 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 				)}
 			>
 				<CollapsibleTrigger
-					aria-label={item.title}
+					aria-label={triggerLabel}
 					className="absolute inset-0 rounded focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-[-1px]"
 					disabled={!hasBody}
 				/>
@@ -121,6 +127,15 @@ export function ToolCallRow({ item }: { item: ToolCall }) {
 						data-find-item={item.id}
 					>
 						{title}
+						{chips.map((chip) => (
+							<span
+								className="min-w-0 max-w-48 truncate rounded bg-foreground/[0.06] px-1.5 py-px text-xs"
+								data-chip-kind={chip.kind}
+								key={`${chip.kind}:${chip.label}`}
+							>
+								{chip.label}
+							</span>
+						))}
 					</span>
 					{running && <RunningTime startedAtMs={item.startedAtMs} />}
 					<StatusWord status={item.status} />

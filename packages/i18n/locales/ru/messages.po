@@ -3238,8 +3238,16 @@ msgstr "«{0}» архивирована"
 msgid "Archived {0}"
 msgstr "В архиве {0}"
 
+msgctxt "Paradev tool"
+msgid "Archived automation"
+msgstr "Автоматизация архивирована"
+
 msgid "Archived shown"
 msgstr "Архивные показаны"
+
+msgctxt "Paradev tool"
+msgid "Archiving automation"
+msgstr "Архивирование автоматизации"
 
 msgid "Are you sure you want to delete this file? This action cannot be undone."
 msgstr "Точно удалить этот файл? Действие нельзя отменить."
@@ -4951,6 +4959,14 @@ msgstr "Закрыт"
 msgctxt "pull request or issue state"
 msgid "Closed"
 msgstr "Закрыто"
+
+msgctxt "Paradev tool"
+msgid "Closed terminal"
+msgstr "Терминал закрыт"
+
+msgctxt "Paradev tool"
+msgid "Closing terminal"
+msgstr "Закрытие терминала"
 
 msgid "Closing these ports will end the processes using them."
 msgstr "Закрытие этих портов завершит использующие их процессы."
@@ -6842,6 +6858,10 @@ msgstr "В {where} создано папок: {createdDirs}"
 msgid "Created 1 folder in {where}"
 msgstr "В {where} создана 1 папка"
 
+msgctxt "Paradev tool"
+msgid "Created automation"
+msgstr "Автоматизация создана"
+
 msgid "Created by"
 msgstr "Кем создано"
 
@@ -6854,8 +6874,16 @@ msgstr "Созданные мной"
 msgid "Created ENG-142 Login fails on Safari"
 msgstr "Создана ENG-142 Login fails on Safari"
 
+msgctxt "Paradev tool"
+msgid "Created task"
+msgstr "Задача создана"
+
 msgid "Created team \"{trimmedName}\""
 msgstr "Команда «{trimmedName}» создана"
+
+msgctxt "Paradev tool"
+msgid "Created workspace"
+msgstr "Рабочая область создана"
 
 msgid "creating"
 msgstr "создаётся"
@@ -6873,6 +6901,10 @@ msgstr "Создание задачи"
 msgid "Creating a workspace"
 msgstr "Создание рабочего пространства"
 
+msgctxt "Paradev tool"
+msgid "Creating automation"
+msgstr "Создание автоматизации"
+
 msgid "Creating PR..."
 msgstr "Создание PR…"
 
@@ -6885,9 +6917,17 @@ msgstr "Создание сессии"
 msgid "Creating session: {name}"
 msgstr "Создание сессии: {name}"
 
+msgctxt "Paradev tool"
+msgid "Creating task"
+msgstr "Создание задачи"
+
 msgid "Creating the sandbox"
 msgstr "Создаётся песочница"
 
+msgid "Creating workspace"
+msgstr "Создание рабочей области"
+
+msgctxt "Paradev tool"
 msgid "Creating workspace"
 msgstr "Создание рабочей области"
 
@@ -7341,6 +7381,10 @@ msgstr "Удалён {deletedWhen} · {deviceNames}"
 msgid "Deleted {name}"
 msgstr "{name} удалён"
 
+msgctxt "Paradev tool"
+msgid "Deleted automation"
+msgstr "Автоматизация удалена"
+
 msgid "Deleted by {deletedBy} {deletedWhen} · {deviceNames}"
 msgstr "Удалил(а) {deletedBy} {deletedWhen} · {deviceNames}"
 
@@ -7353,11 +7397,19 @@ msgstr "удалена или недоступна, выберите другу�
 msgid "Deleted projects can be restored for 30 days, with the workspaces that were deleted with them. After that they are removed; the repository folder and worktrees with uncommitted changes stay on disk."
 msgstr "Удалённые проекты можно восстановить в течение 30 дней вместе с рабочими областями, удалёнными вместе с ними. После этого они удаляются окончательно; папка репозитория и worktree с незакоммиченными изменениями остаются на диске."
 
+msgctxt "Paradev tool"
+msgid "Deleted task"
+msgstr "Задача удалена"
+
 msgid "Deleted user"
 msgstr "Удалённый пользователь"
 
 msgid "Deleted workspace"
 msgstr "Удалённая рабочая область"
+
+msgctxt "Paradev tool"
+msgid "Deleted workspace"
+msgstr "Рабочая область удалена"
 
 msgid "Deleted workspaces, but couldn’t finish updating the sidebar"
 msgstr "Рабочие области удалены, но обновить боковую панель до конца не удалось"
@@ -7380,8 +7432,20 @@ msgstr "Удаление"
 msgid "Deleting {name}..."
 msgstr "Удаление {name}..."
 
+msgctxt "Paradev tool"
+msgid "Deleting automation"
+msgstr "Удаление автоматизации"
+
 msgid "Deleting organization..."
 msgstr "Удаление организации..."
+
+msgctxt "Paradev tool"
+msgid "Deleting task"
+msgstr "Удаление задачи"
+
+msgctxt "Paradev tool"
+msgid "Deleting workspace"
+msgstr "Удаление рабочей области"
 
 msgid "Deleting..."
 msgstr "Удаление..."
@@ -7881,8 +7945,16 @@ msgstr "Скачать файл темы"
 msgid "downloaded"
 msgstr "загружено"
 
+msgctxt "Paradev tool"
+msgid "Downloaded page"
+msgstr "Страница скачана"
+
 msgid "Downloading"
 msgstr "Загрузка"
+
+msgctxt "Paradev tool"
+msgid "Downloading page"
+msgstr "Скачивание страницы"
 
 msgid "Downloading..."
 msgstr "Загрузка..."
@@ -11368,6 +11440,14 @@ msgstr "Запускать этот скрипт терминала при от�
 msgid "Launch watch"
 msgstr "Наблюдение за релизом"
 
+msgctxt "Paradev tool"
+msgid "Launched agent"
+msgstr "Агент запущен"
+
+msgctxt "Paradev tool"
+msgid "Launching agent"
+msgstr "Запуск агента"
+
 msgid "Layout"
 msgstr "Раскладка"
 
@@ -11642,6 +11722,62 @@ msgctxt "shell intent"
 msgid "Listed"
 msgstr "Выведен список"
 
+msgctxt "Paradev tool"
+msgid "Listed agents"
+msgstr "Получен список агентов"
+
+msgctxt "Paradev tool"
+msgid "Listed automation runs"
+msgstr "Получен список запусков автоматизаций"
+
+msgctxt "Paradev tool"
+msgid "Listed automations"
+msgstr "Получен список автоматизаций"
+
+msgctxt "Paradev tool"
+msgid "Listed hosts"
+msgstr "Получен список хостов"
+
+msgctxt "Paradev tool"
+msgid "Listed members"
+msgstr "Получен список участников"
+
+msgctxt "Paradev tool"
+msgid "Listed page comments"
+msgstr "Получен список комментариев страницы"
+
+msgctxt "Paradev tool"
+msgid "Listed page versions"
+msgstr "Получен список версий страницы"
+
+msgctxt "Paradev tool"
+msgid "Listed pages"
+msgstr "Получен список страниц"
+
+msgctxt "Paradev tool"
+msgid "Listed projects"
+msgstr "Получен список проектов"
+
+msgctxt "Paradev tool"
+msgid "Listed task statuses"
+msgstr "Получен список статусов задач"
+
+msgctxt "Paradev tool"
+msgid "Listed tasks"
+msgstr "Получен список задач"
+
+msgctxt "Paradev tool"
+msgid "Listed terminals"
+msgstr "Получен список терминалов"
+
+msgctxt "Paradev tool"
+msgid "Listed trigger options"
+msgstr "Получен список вариантов триггера"
+
+msgctxt "Paradev tool"
+msgid "Listed workspaces"
+msgstr "Получен список рабочих областей"
+
 msgid "Listening"
 msgstr "Слушаю"
 
@@ -11658,8 +11794,64 @@ msgctxt "shell intent"
 msgid "Listing"
 msgstr "Список"
 
+msgctxt "Paradev tool"
+msgid "Listing agents"
+msgstr "Получение списка агентов"
+
+msgctxt "Paradev tool"
+msgid "Listing automation runs"
+msgstr "Получение списка запусков автоматизаций"
+
+msgctxt "Paradev tool"
+msgid "Listing automations"
+msgstr "Получение списка автоматизаций"
+
+msgctxt "Paradev tool"
+msgid "Listing hosts"
+msgstr "Получение списка хостов"
+
+msgctxt "Paradev tool"
+msgid "Listing members"
+msgstr "Получение списка участников"
+
+msgctxt "Paradev tool"
+msgid "Listing page comments"
+msgstr "Получение списка комментариев страницы"
+
+msgctxt "Paradev tool"
+msgid "Listing page versions"
+msgstr "Получение списка версий страницы"
+
+msgctxt "Paradev tool"
+msgid "Listing pages"
+msgstr "Получение списка страниц"
+
+msgctxt "Paradev tool"
+msgid "Listing projects"
+msgstr "Получение списка проектов"
+
 msgid "Listing sessions in {what}"
 msgstr "Получаю список сессий в {what}"
+
+msgctxt "Paradev tool"
+msgid "Listing task statuses"
+msgstr "Получение списка статусов задач"
+
+msgctxt "Paradev tool"
+msgid "Listing tasks"
+msgstr "Получение списка задач"
+
+msgctxt "Paradev tool"
+msgid "Listing terminals"
+msgstr "Получение списка терминалов"
+
+msgctxt "Paradev tool"
+msgid "Listing trigger options"
+msgstr "Получение списка вариантов триггера"
+
+msgctxt "Paradev tool"
+msgid "Listing workspaces"
+msgstr "Получение списка рабочих областей"
 
 msgid "live"
 msgstr "онлайн"
@@ -14674,6 +14866,10 @@ msgstr "OpenAI отклонил этот ключ API."
 msgid "Opened"
 msgstr "Открыт"
 
+msgctxt "Paradev tool"
+msgid "Opened terminal"
+msgstr "Терминал открыт"
+
 msgid "Opening {appName}…"
 msgstr "Открываем {appName}…"
 
@@ -14691,6 +14887,10 @@ msgstr "Открытие в интерфейсе чата…"
 
 msgid "Opening pages"
 msgstr "Открытие страниц"
+
+msgctxt "Paradev tool"
+msgid "Opening terminal"
+msgstr "Открытие терминала"
 
 msgid "Operator"
 msgstr "Оператор"
@@ -15292,12 +15492,20 @@ msgctxt "project state"
 msgid "Paused"
 msgstr "Приостановлен"
 
+msgctxt "Paradev tool"
+msgid "Paused automation"
+msgstr "Автоматизация приостановлена"
+
 #. placeholder {0}: formatDateTime(pausedUntil, { timeStyle: "short" })
 msgid "Paused until {0}"
 msgstr "Приостановлено до {0}"
 
 msgid "Paused when Paradev closed"
 msgstr "Приостановлено при закрытии Paradev"
+
+msgctxt "Paradev tool"
+msgid "Pausing automation"
+msgstr "Приостановка автоматизации"
 
 msgid "Pay {total}"
 msgstr "Оплатить {total}"
@@ -16057,6 +16265,10 @@ msgctxt "github release action"
 msgid "Published"
 msgstr "Опубликован"
 
+msgctxt "Paradev tool"
+msgid "Published page"
+msgstr "Страница опубликована"
+
 msgid "Published version 1."
 msgstr "Опубликована версия 1."
 
@@ -16065,6 +16277,10 @@ msgstr "Публикует количество токенов и названи
 
 msgid "Publishing as <0>{handle}</0>. Token counts and model names only, no repo names, file paths or prompts."
 msgstr "Публикуется как <0>{handle}</0>. Только количество токенов и названия моделей — без названий репозиториев, путей к файлам и промптов."
+
+msgctxt "Paradev tool"
+msgid "Publishing page"
+msgstr "Публикация страницы"
 
 msgid "Pull request"
 msgstr "Пул-реквест"
@@ -16249,6 +16465,10 @@ msgstr "Документация Radix Tooltip"
 msgid "Ran <0>bun test settings</0> · 14 passed · 1 failed"
 msgstr "Выполнено <0>bun test settings</0> · 14 пройдено · 1 не пройден"
 
+msgctxt "Paradev tool"
+msgid "Ran automation"
+msgstr "Автоматизация запущена"
+
 msgid "Random icon"
 msgstr "Случайный значок"
 
@@ -16334,6 +16554,14 @@ msgstr "Чтение и отправка писем"
 msgid "Read announcement"
 msgstr "Читать анонс"
 
+msgctxt "Paradev tool"
+msgid "Read automation"
+msgstr "Автоматизация прочитана"
+
+msgctxt "Paradev tool"
+msgid "Read automation prompt"
+msgstr "Промпт автоматизации прочитан"
+
 msgid "Read data you copy and paste"
 msgstr "Читать данные, которые вы копируете и вставляете"
 
@@ -16345,6 +16573,22 @@ msgstr "Читайте на телефоне"
 
 msgid "Read MCP servers again"
 msgstr "Перечитать серверы MCP"
+
+msgctxt "Paradev tool"
+msgid "Read page"
+msgstr "Страница прочитана"
+
+msgctxt "Paradev tool"
+msgid "Read page storage"
+msgstr "Хранилище страницы прочитано"
+
+msgctxt "Paradev tool"
+msgid "Read task"
+msgstr "Задача прочитана"
+
+msgctxt "Paradev tool"
+msgid "Read terminal"
+msgstr "Терминал прочитан"
 
 msgid "Read the changelog"
 msgstr "Читать changelog"
@@ -16391,6 +16635,30 @@ msgstr "Чтение"
 
 msgid "Reading {what}"
 msgstr "Читаю {what}"
+
+msgctxt "Paradev tool"
+msgid "Reading automation"
+msgstr "Чтение автоматизации"
+
+msgctxt "Paradev tool"
+msgid "Reading automation prompt"
+msgstr "Чтение промпта автоматизации"
+
+msgctxt "Paradev tool"
+msgid "Reading page"
+msgstr "Чтение страницы"
+
+msgctxt "Paradev tool"
+msgid "Reading page storage"
+msgstr "Чтение хранилища страницы"
+
+msgctxt "Paradev tool"
+msgid "Reading task"
+msgstr "Чтение задачи"
+
+msgctxt "Paradev tool"
+msgid "Reading terminal"
+msgstr "Чтение терминала"
 
 msgid "Reading the page"
 msgstr "Чтение страницы"
@@ -16827,11 +17095,19 @@ msgstr "{removedLabel} удалён."
 msgid "Removed from the merge queue"
 msgstr "Убрано из очереди объединения"
 
+msgctxt "Paradev tool"
+msgid "Removed page storage"
+msgstr "Хранилище страницы удалено"
+
 msgid "Removes this agent from this device only."
 msgstr "Удаляет этого агента только с этого устройства."
 
 msgid "Removing member..."
 msgstr "Удаление участника..."
+
+msgctxt "Paradev tool"
+msgid "Removing page storage"
+msgstr "Удаление хранилища страницы"
 
 msgid "Removing terminal..."
 msgstr "Удаление терминала..."
@@ -16947,6 +17223,10 @@ msgstr "В {where} заменено файлов: {replaced}"
 msgid "Replaced 1 file in {where}"
 msgstr "В {where} заменён 1 файл"
 
+msgctxt "Paradev tool"
+msgid "Replied to comment"
+msgstr "Отправлен ответ на комментарий"
+
 msgid "Replied to your DM"
 msgstr "Ответил(а) на ваше личное сообщение"
 
@@ -16973,6 +17253,10 @@ msgstr "Ответ для {replyingTo}"
 
 msgid "Replying to a DM"
 msgstr "Отвечает на личное сообщение"
+
+msgctxt "Paradev tool"
+msgid "Replying to comment"
+msgstr "Отправка ответа на комментарий"
 
 msgid "repo"
 msgstr "репозиторий"
@@ -17146,6 +17430,14 @@ msgstr "Закрыть ветку"
 msgid "Resolved"
 msgstr "Решено"
 
+msgctxt "Paradev tool"
+msgid "Resolved comment"
+msgstr "Комментарий отмечен решённым"
+
+msgctxt "Paradev tool"
+msgid "Resolving comment"
+msgstr "Отметка комментария решённым"
+
 msgid "Resource monitor"
 msgstr "Монитор ресурсов"
 
@@ -17284,8 +17576,16 @@ msgstr "«{projectName}» восстановлен"
 msgid "Restored \"{workspaceName}\""
 msgstr "Восстановлено: «{workspaceName}»"
 
+msgctxt "Paradev tool"
+msgid "Restored automation"
+msgstr "Автоматизация восстановлена"
+
 msgid "Restoring \"{workspaceName}\"…"
 msgstr "Восстановление «{workspaceName}»…"
+
+msgctxt "Paradev tool"
+msgid "Restoring automation"
+msgstr "Восстановление автоматизации"
 
 msgid "Restoring Claude's session"
 msgstr "Восстановление сеанса Claude"
@@ -17323,12 +17623,20 @@ msgstr "Возобновить автоматизацию"
 msgid "Resume notifications"
 msgstr "Возобновить уведомления"
 
+msgctxt "Paradev tool"
+msgid "Resumed automation"
+msgstr "Автоматизация возобновлена"
+
 #. placeholder {0}: candidate.agentLabel
 msgid "Resuming {0}…"
 msgstr "Возобновление {0}…"
 
 msgid "Resuming at reset"
 msgstr "Продолжится после сброса"
+
+msgctxt "Paradev tool"
+msgid "Resuming automation"
+msgstr "Возобновление автоматизации"
 
 msgid "Resuming in {resumeSeconds}s"
 msgstr "Продолжение через {resumeSeconds} с"
@@ -17693,6 +18001,10 @@ msgstr "«{name}» запускается"
 msgid "Running agents on this profile lose access."
 msgstr "Работающие агенты этого профиля потеряют доступ."
 
+msgctxt "Paradev tool"
+msgid "Running automation"
+msgstr "Запуск автоматизации"
+
 msgid "Running bun test…"
 msgstr "Выполняется bun test…"
 
@@ -17826,6 +18138,10 @@ msgstr "{name} сохранено, но не удалось запустить �
 msgid "Saved from a workspace"
 msgstr "Сохранено из рабочей области"
 
+msgctxt "Paradev tool"
+msgid "Saved page storage"
+msgstr "Хранилище страницы сохранено"
+
 msgid "Saved to Downloads"
 msgstr "Сохранено в «Загрузки»"
 
@@ -17843,6 +18159,10 @@ msgstr "Сохранение как среда..."
 
 msgid "Saving its work and its chats…"
 msgstr "Сохранение её работы и чатов…"
+
+msgctxt "Paradev tool"
+msgid "Saving page storage"
+msgstr "Сохранение хранилища страницы"
 
 msgid "Saving..."
 msgstr "Сохранение..."
@@ -18451,6 +18771,10 @@ msgstr "Отправка"
 msgid "Sending a message to {what}"
 msgstr "Отправка сообщения в {what}"
 
+msgctxt "Paradev tool"
+msgid "Sending to terminal"
+msgstr "Отправка в терминал"
+
 msgid "Sending..."
 msgstr "Отправка..."
 
@@ -18485,6 +18809,10 @@ msgstr "Приглашение повторно отправлено на {0}"
 
 msgid "Sent to agent"
 msgstr "Отправлено агенту"
+
+msgctxt "Paradev tool"
+msgid "Sent to terminal"
+msgstr "Отправлено в терминал"
 
 msgid "Sent to the pull request's workspace"
 msgstr "Отправлено в рабочую область пул-реквеста"
@@ -18554,6 +18882,10 @@ msgstr "Сессии · топ {0} по стоимости"
 msgid "Set a notification schedule"
 msgstr "Задать расписание уведомлений"
 
+msgctxt "Paradev tool"
+msgid "Set automation prompt"
+msgstr "Промпт автоматизации задан"
+
 msgid "Set channel…"
 msgstr "Выбрать канал…"
 
@@ -18613,6 +18945,10 @@ msgstr "Настройте организацию, чтобы начать"
 
 msgid "Setting an installed plugin back to Available keeps everyone's copy; they can then remove it. Unavailable removes it."
 msgstr "Если вернуть установленный плагин в «Доступен», у всех останется их копия, и её можно будет удалить. «Недоступен» удаляет его."
+
+msgctxt "Paradev tool"
+msgid "Setting automation prompt"
+msgstr "Задание промпта автоматизации"
 
 msgid "Setting saved"
 msgstr "Настройка сохранена"
@@ -22283,16 +22619,40 @@ msgstr "{key} обновлено"
 msgid "Updated {updatedRelative}"
 msgstr "Обновлено {updatedRelative}"
 
+msgctxt "Paradev tool"
+msgid "Updated automation"
+msgstr "Автоматизация обновлена"
+
 #. placeholder {0}: previousVersion ?? "?"
 msgid "Updated just now from {0}."
 msgstr "Только что обновлено с {0}."
 
+msgctxt "Paradev tool"
+msgid "Updated task"
+msgstr "Задача обновлена"
+
+msgctxt "Paradev tool"
+msgid "Updated workspace"
+msgstr "Рабочая область обновлена"
+
 msgid "Updates"
 msgstr "Обновления"
+
+msgctxt "Paradev tool"
+msgid "Updating automation"
+msgstr "Обновление автоматизации"
+
+msgctxt "Paradev tool"
+msgid "Updating task"
+msgstr "Обновление задачи"
 
 #. placeholder {0}: update.progress.target
 msgid "Updating to {0}"
 msgstr "Обновление до {0}"
+
+msgctxt "Paradev tool"
+msgid "Updating workspace"
+msgstr "Обновление рабочей области"
 
 msgid "Updating…"
 msgstr "Обновление…"
