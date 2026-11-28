@@ -10,7 +10,7 @@ const LEGACY_PREFIX = "superset-";
 
 export const BUNDLED_SKILLS_DIR = path.join(
 	process.cwd(),
-	"../../plugins/superset/skills",
+	"../../plugins/paradev/skills",
 );
 
 const BUNDLED_NAMES: readonly string[] = SUPERSET_MANAGED_SKILLS.map(

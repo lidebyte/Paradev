@@ -166,7 +166,9 @@ tells the model to use the `paradev:` name. Composers fold `superset:<x>` into
 remove the `superset` directory: builds from before the rename provision only it and reap
 `paradev`, so `superset:` is the one name that resolves on every build. If the user owns a
 `paradev` directory, `superset` stays the full plugin. The `~/.agents/skills/superset-<skill>` names
-and the source directory `plugins/superset/` did not change.
+did not change; the source directory is now `plugins/paradev/`. Its folder name no longer
+matches its manifest name (`superset`), so code that finds a shipped plugin by
+`join(root, plugin.name)`, such as `sandbox-plugins.ts`, does not find it.
 
 Plugin MCP servers are also synced to Claude's `~/.claude.json`, Codex's
 `~/.codex/config.toml`, and pdev's `~/.paradev/agent/mcp.json`. pdev honors
