@@ -32,6 +32,7 @@ export default command({
 		const result = await target.client.terminal.killSession.mutate({
 			terminalId: options.terminal,
 			workspaceId: options.workspace,
+			closePanes: true,
 		});
 
 		return {

@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { getSupervisor, waitForDaemonReady } from "../../../daemon";
 import { terminalSessions, workspaces } from "../../../db/schema";
+import { PaneLayoutBridgeClient } from "../../../runtime/pane-layout-bridge/pane-layout-bridge-client";
 import {
 	createTerminalSessionInternal,
 	disposeSessionAndWait,
@@ -24,6 +25,7 @@ import {
 import { sendToAgent } from "../../../terminal-agents/send-to-agent";
 import type { HostServiceContext } from "../../../types";
 import { protectedProcedure, router } from "../../index";
+import { closeTerminalPanes } from "./close-terminal-panes";
 import { toTerminalSessionError } from "./errors";
 
 export const createSessionInputSchema = z.object({
@@ -315,6 +317,7 @@ export const terminalRouter = router({
 			z.object({
 				terminalId: z.string(),
 				workspaceId: z.string(),
+				closePanes: z.boolean().default(false),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
@@ -376,6 +379,19 @@ export const terminalRouter = router({
 			// killed session at the next pane mount.
 			ctx.terminalAgentStore.markTerminalDisposed(input.terminalId);
 			await disposeSessionAndWait(input.terminalId, ctx.db);
+			if (input.closePanes && ctx.browserBridge) {
+				const bridge = new PaneLayoutBridgeClient(ctx.browserBridge);
+				await closeTerminalPanes(
+					(request) => bridge.apply(request),
+					input.workspaceId,
+					input.terminalId,
+				).catch((error) => {
+					console.warn("[terminal] could not close the terminal's panes", {
+						terminalId: input.terminalId,
+						error,
+					});
+				});
+			}
 			return { terminalId: input.terminalId, status: "disposed" as const };
 		}),
 

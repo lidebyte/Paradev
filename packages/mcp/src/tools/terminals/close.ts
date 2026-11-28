@@ -35,7 +35,11 @@ export function register(server: McpServer): void {
 				ctx,
 				"terminal.killSession",
 				"mutation",
-				{ terminalId: input.terminalId, workspaceId: input.workspaceId },
+				{
+					terminalId: input.terminalId,
+					workspaceId: input.workspaceId,
+					closePanes: true,
+				},
 			);
 		},
 	});

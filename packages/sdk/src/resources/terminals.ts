@@ -90,7 +90,11 @@ export class Terminals extends APIResource {
 		return this._client.workspaceMutation<TerminalCloseResult>(
 			params.workspaceId,
 			{ method: "terminals.close", procedure: "terminal.killSession" },
-			{ terminalId: params.terminalId, workspaceId: params.workspaceId },
+			{
+				terminalId: params.terminalId,
+				workspaceId: params.workspaceId,
+				closePanes: true,
+			},
 			options,
 		);
 	}
