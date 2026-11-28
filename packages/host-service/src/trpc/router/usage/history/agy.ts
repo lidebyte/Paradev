@@ -1,7 +1,8 @@
 /** Antigravity CLI transcript usage (`~/.gemini/antigravity-cli/brain`). */
-import { readdir, stat } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { UsageLogEntry } from "./parse";
 import { forEachLine, toSessionLabel } from "./parse";
 
@@ -134,18 +135,75 @@ export function parseAgyTranscriptLine(
 	};
 }
 
+/**
+ * A transcript does not name its working directory. agy keeps it in its
+ * conversation cache, and in the prompt history for a conversation that
+ * started before the folder was trusted.
+ */
+async function readAgyWorkspaces(root: string): Promise<Map<string, string>> {
+	const workspaces = new Map<string, string>();
+	try {
+		const cache = object(
+			JSON.parse(
+				await readFile(
+					join(root, "cache", "conversation_metadata.json"),
+					"utf8",
+				),
+			),
+		);
+		for (const [id, value] of Object.entries(
+			object(cache?.conversations) ?? {},
+		)) {
+			const uris = object(object(value)?.summary)?.WorkspaceURIs;
+			const uri = Array.isArray(uris) ? uris[0] : null;
+			if (typeof uri !== "string" || !uri.startsWith("file://")) continue;
+			try {
+				workspaces.set(id, fileURLToPath(uri));
+			} catch {}
+		}
+	} catch {}
+	await forEachLine(join(root, "history.jsonl"), (line) => {
+		let prompt: JsonObject | null = null;
+		try {
+			prompt = object(JSON.parse(line));
+		} catch {
+			return;
+		}
+		const id = prompt?.conversationId;
+		const workspace = prompt?.workspace;
+		if (
+			typeof id === "string" &&
+			typeof workspace === "string" &&
+			!workspaces.has(id)
+		) {
+			workspaces.set(id, workspace);
+		}
+	}).catch(() => {});
+	return workspaces;
+}
+
+const USER_REQUEST = /^<USER_REQUEST>\n([\s\S]*?)\n<\/USER_REQUEST>/;
+
+function userRequest(content: unknown): unknown {
+	return typeof content === "string"
+		? (USER_REQUEST.exec(content)?.[1] ?? content)
+		: content;
+}
+
 export async function collectAgyEntries(
 	cutoffMs: number,
 	out: UsageLogEntry[],
 	sessionLabels: Map<string, string>,
+	root = join(homedir(), ".gemini", "antigravity-cli"),
 ): Promise<number> {
-	const brain = join(homedir(), ".gemini", "antigravity-cli", "brain");
+	const brain = join(root, "brain");
 	let sessions: string[];
 	try {
 		sessions = await readdir(brain);
 	} catch {
 		return 0;
 	}
+	const workspaces = await readAgyWorkspaces(root);
 	let scanned = 0;
 	for (const sessionId of sessions) {
 		const path = join(
@@ -161,7 +219,7 @@ export async function collectAgyEntries(
 			continue;
 		}
 		scanned += 1;
-		let cwd: string | null = null;
+		let cwd: string | null = workspaces.get(sessionId) ?? null;
 		await forEachLine(path, (line) => {
 			let envelope: JsonObject | null = null;
 			try {
@@ -176,7 +234,7 @@ export async function collectAgyEntries(
 				if (typeof candidate === "string") cwd = candidate;
 			}
 			if (!sessionLabels.has(sessionId) && envelope?.type === "USER_INPUT") {
-				const label = toSessionLabel(envelope.content);
+				const label = toSessionLabel(userRequest(envelope.content));
 				if (label) sessionLabels.set(sessionId, label);
 			}
 			const entry = parseAgyTranscriptLine(line, sessionId, cwd);
