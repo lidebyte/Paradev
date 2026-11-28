@@ -2391,6 +2391,7 @@ export const pages = pgTable(
 		watchedByAgent: text("watched_by_agent"),
 		watchState: jsonb("watch_state").$type<PageWatchOwnership>(),
 		watchHeartbeatAt: timestamp("watch_heartbeat_at", { withTimezone: true }),
+		archivedAt: timestamp("archived_at", { withTimezone: true }),
 		createdAt: timestamp("created_at", { withTimezone: true })
 			.notNull()
 			.defaultNow(),
