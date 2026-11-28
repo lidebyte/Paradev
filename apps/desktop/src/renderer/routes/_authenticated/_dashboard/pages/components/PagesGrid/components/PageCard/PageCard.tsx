@@ -12,6 +12,8 @@ import { DeletePageDialog } from "@superset/ui/page-comments";
 import { toast } from "@superset/ui/sonner";
 import { cn } from "@superset/ui/utils";
 import {
+	Archive,
+	ArchiveRestore,
 	Building2,
 	Copy,
 	Globe,
@@ -37,6 +39,8 @@ export interface PageCardItem {
 	url: string;
 	thumbnailUrl: string | null;
 	visibility: string;
+	organizationRole: string;
+	archivedAt: Date | string | null;
 	createdAt: Date | string;
 	updatedAt: Date | string;
 	latestVersion: number | null;
@@ -53,6 +57,7 @@ interface PageCardProps {
 	currentUserId: string | undefined;
 	onOpen: (page: PageCardItem, event: MouseEvent) => void;
 	onTogglePin: (pageId: string) => void;
+	onSetArchived: (pageId: string, archived: boolean) => Promise<void>;
 	onDelete: (pageId: string) => Promise<void>;
 	onDuplicate: (pageId: string, title: string) => Promise<void>;
 }
@@ -63,6 +68,7 @@ export function PageCard({
 	currentUserId,
 	onOpen,
 	onTogglePin,
+	onSetArchived,
 	onDelete,
 	onDuplicate,
 }: PageCardProps) {
@@ -74,6 +80,10 @@ export function PageCard({
 	const isOwner =
 		currentUserId !== undefined && currentUserId === page.createdByUserId;
 	const ownerName = isOwner ? null : page.ownerName;
+	const isArchived = page.archivedAt !== null;
+	const canArchive =
+		isOwner ||
+		(page.visibility !== "just_me" && page.organizationRole === "edit");
 	const VisibilityIcon =
 		page.visibility === "everyone"
 			? Globe
@@ -105,6 +115,21 @@ export function PageCard({
 			);
 		} finally {
 			duplicating.current = false;
+		}
+	};
+
+	const toggleArchived = async () => {
+		try {
+			await onSetArchived(page.id, !isArchived);
+		} catch (error) {
+			toast.error(
+				errorMessage(
+					error,
+					isArchived
+						? t({ message: "Could not unarchive this page" })
+						: t({ message: "Could not archive this page" }),
+				),
+			);
 		}
 	};
 
@@ -226,6 +251,16 @@ export function PageCard({
 						<Copy className="size-4" />
 						<Trans>Duplicate</Trans>
 					</DropdownMenuItem>
+					{canArchive ? (
+						<DropdownMenuItem onSelect={() => void toggleArchived()}>
+							{isArchived ? (
+								<ArchiveRestore className="size-4" />
+							) : (
+								<Archive className="size-4" />
+							)}
+							{isArchived ? <Trans>Unarchive</Trans> : <Trans>Archive</Trans>}
+						</DropdownMenuItem>
+					) : null}
 					{isOwner ? (
 						<DropdownMenuItem
 							variant="destructive"

@@ -21,6 +21,7 @@ import {
 	and,
 	desc,
 	eq,
+	exists,
 	ilike,
 	inArray,
 	isNotNull,
@@ -89,6 +90,7 @@ import {
 	publicPageSchema,
 	publishPageSchema,
 	pullPageSchema,
+	setPageArchivedSchema,
 	setPageOrganizationRoleSchema,
 	setPageVisibilitySchema,
 	setPageWatchSchema,
@@ -143,6 +145,25 @@ function scopeFilter(scope: PageListScope, userId: string): SQL | undefined {
 }
 
 /**
+ * `exists`, not a join: a page can link to several workspaces of one project,
+ * and a join would return it once per link.
+ */
+function linkedToAnyWorkspace(workspaceIds: string[] | undefined) {
+	if (!workspaceIds) return undefined;
+	return exists(
+		db
+			.select({ one: sql`1` })
+			.from(workspacePages)
+			.where(
+				and(
+					eq(workspacePages.pageId, pages.id),
+					inArray(workspacePages.workspaceId, workspaceIds),
+				),
+			),
+	);
+}
+
+/**
  * Shared by `list` and `counts` so a tab's count and its contents can't be
  * answered by two different WHERE clauses.
  */
@@ -152,10 +173,14 @@ function pageFilters(
 		scope?: PageListScope | undefined;
 		authorId?: string | undefined;
 		ids?: string[] | undefined;
+		workspaceIds?: string[] | undefined;
+		archived?: boolean | undefined;
 	},
 	userId: string,
 ): (SQL | undefined)[] {
-	const filters: (SQL | undefined)[] = [];
+	const filters: (SQL | undefined)[] = [
+		input.archived ? isNotNull(pages.archivedAt) : isNull(pages.archivedAt),
+	];
 
 	if (input.search) {
 		const term = `%${escapeLikePattern(input.search)}%`;
@@ -173,6 +198,7 @@ function pageFilters(
 	// An empty array is "no pins", which must return nothing rather than
 	// degrade to the unfiltered list.
 	if (input.ids) filters.push(inArray(pages.id, input.ids));
+	filters.push(linkedToAnyWorkspace(input.workspaceIds));
 
 	return filters;
 }
@@ -296,7 +322,9 @@ async function listPageBatch({
 			title: pages.title,
 			description: pages.description,
 			visibility: pages.visibility,
+			organizationRole: pages.organizationRole,
 			sharedVersion: pages.sharedVersion,
+			archivedAt: pages.archivedAt,
 			createdAt: pages.createdAt,
 			updatedAt: pages.updatedAt,
 			// `::text` keeps the microseconds a JS Date would truncate, which
@@ -564,14 +592,16 @@ export const pageRouter = {
 				});
 			}
 
-			const filters: (SQL | undefined)[] = [
+			const readable = [
 				eq(pages.organizationId, organizationId),
 				pageReadableBy(userId),
-				...pageFilters(
-					{ search: input?.search, authorId: input?.authorId },
-					userId,
-				),
 			];
+			const unscoped = { search: input?.search, archived: input?.archived };
+			const filters: (SQL | undefined)[] = [
+				...readable,
+				...pageFilters({ ...unscoped, authorId: input?.authorId }, userId),
+			];
+			const inProject = linkedToAnyWorkspace(input?.workspaceIds);
 
 			const pinned = input?.pinnedIds ?? [];
 			const selection = {
@@ -585,24 +615,26 @@ export const pageRouter = {
 			};
 
 			const query = db.select(selection).from(pages);
-			const [row] = await (input?.workspaceId
+			const totals = input?.workspaceId
 				? query
 						.innerJoin(workspacePages, eq(workspacePages.pageId, pages.id))
 						.where(
 							and(
 								...filters,
+								inProject,
 								eq(workspacePages.workspaceId, input.workspaceId),
 							),
 						)
-				: query.where(and(...filters)));
+				: query.where(and(...filters, inProject));
 
 			// Each picker's own counts, so choosing an option does not depend on
 			// having downloaded every page to count them. A breakdown is never
 			// narrowed by the dimension it offers — that is the choice being made,
 			// and narrowing by it collapses the list to whatever is already
 			// selected — but it is narrowed by every other active filter, or it
-			// offers options that lead to an empty list.
-			const workspaces = await db
+			// offers options that lead to an empty list. A project is a set of
+			// workspaces, so the workspace breakdown is not narrowed by it either.
+			const workspaces = db
 				.select({
 					workspaceId: workspacePages.workspaceId,
 					count: sql<number>`count(*)::int`,
@@ -633,22 +665,28 @@ export const pageRouter = {
 				);
 			}
 
-			const authors = await authorsBase
+			const authors = authorsBase
 				.where(
 					and(
-						eq(pages.organizationId, organizationId),
-						pageReadableBy(userId),
+						...readable,
 						// `authorId` deliberately absent; `search` still applies.
-						...pageFilters({ search: input?.search }, userId),
+						...pageFilters(unscoped, userId),
+						inProject,
 						isNotNull(pages.createdByUserId),
 					),
 				)
 				.groupBy(pages.createdByUserId, users.name, users.image);
 
-			return {
-				...(row ?? { all: 0, team: 0, mine: 0, shared: 0, pinned: 0 }),
+			const [[row], workspaceRows, authorRows] = await Promise.all([
+				totals,
 				workspaces,
 				authors,
+			]);
+
+			return {
+				...(row ?? { all: 0, team: 0, mine: 0, shared: 0, pinned: 0 }),
+				workspaces: workspaceRows,
+				authors: authorRows,
 			};
 		}),
 
@@ -1046,6 +1084,27 @@ export const pageRouter = {
 				void enqueuePageThumbnail({ pageId: page.id, version: served });
 			}
 			return { id: updated.id, sharedVersion: updated.sharedVersion };
+		}),
+
+	setArchived: personProcedure
+		.input(setPageArchivedSchema)
+		.mutation(async ({ ctx, input }) => {
+			const organizationId = await requireActiveOrgMembership(ctx);
+			const userId = ctx.session.user.id;
+			const page = await loadPage({ id: input.id, organizationId, userId });
+			await assertPageEditable(page, userId);
+
+			if (Boolean(page.archivedAt) !== input.archived) {
+				await db
+					.update(pages)
+					.set({
+						archivedAt: input.archived ? new Date() : null,
+						updatedAt: page.updatedAt,
+					})
+					.where(eq(pages.id, page.id));
+			}
+
+			return { id: page.id, archived: input.archived };
 		}),
 
 	delete: personProcedure

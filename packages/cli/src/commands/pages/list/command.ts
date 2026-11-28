@@ -1,4 +1,4 @@
-import { number, string, table } from "@superset/cli-framework";
+import { boolean, number, string, table } from "@superset/cli-framework";
 import { readPublicEnv } from "@superset/shared/public-env";
 import { PAGE_LIST_MAX_LIMIT } from "@superset/trpc/page-schema";
 import { type CliContext, command } from "../../../lib/command";
@@ -97,6 +97,7 @@ export default command({
 				`Return one batch of this many pages (1-${PAGE_LIST_MAX_LIMIT}) plus a cursor, instead of every page`,
 			),
 		cursor: string().desc("Continue from a previous run's nextCursor"),
+		archived: boolean().desc("List archived pages instead of active ones"),
 	},
 	run: async ({ ctx, options }) => {
 		const asked = options.workspace !== undefined;
@@ -113,6 +114,7 @@ export default command({
 		const query = {
 			...(workspaceId ? { workspaceId } : {}),
 			...(options.search ? { search: options.search } : {}),
+			...(options.archived ? { archived: true } : {}),
 			...(options.limit !== undefined ? { limit: options.limit } : {}),
 		};
 

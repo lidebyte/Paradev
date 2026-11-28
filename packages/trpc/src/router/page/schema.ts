@@ -103,6 +103,13 @@ export const PAGE_LIST_MAX_LIMIT = 200;
  */
 export const PAGE_LIST_MAX_IDS = 200;
 
+/**
+ * A project is a set of workspaces only the client can name: workspace rows
+ * live on each host. The list is narrowed to the ones that have pages before
+ * it is sent, so this bounds a request and not a project's size.
+ */
+export const PAGE_LIST_MAX_WORKSPACE_IDS = 200;
+
 export const PAGE_LIST_SCOPES = ["all", "team", "mine", "shared"] as const;
 
 export type PageListScope = (typeof PAGE_LIST_SCOPES)[number];
@@ -121,10 +128,15 @@ const searchField = z
 
 const pageListFilterFields = {
 	workspaceId: pageFields.workspaceId.optional(),
+	workspaceIds: z
+		.array(pageFields.workspaceId)
+		.max(PAGE_LIST_MAX_WORKSPACE_IDS)
+		.optional(),
 	search: searchField,
 	scope: z.enum(PAGE_LIST_SCOPES).default("all"),
 	authorId: z.string().uuid().optional(),
 	ids: z.array(pageFields.id).max(PAGE_LIST_MAX_IDS).optional(),
+	archived: z.boolean().optional(),
 } as const;
 
 /**
@@ -156,9 +168,11 @@ export const listPagesSchema = z
 export const pageCountsSchema = z
 	.object({
 		workspaceId: pageListFilterFields.workspaceId,
+		workspaceIds: pageListFilterFields.workspaceIds,
 		search: pageListFilterFields.search,
 		authorId: pageListFilterFields.authorId,
 		pinnedIds: pageListFilterFields.ids,
+		archived: pageListFilterFields.archived,
 	})
 	.optional();
 
@@ -199,6 +213,11 @@ export const setPageOrganizationRoleSchema = z.object({
 export const setSharedVersionSchema = z.object({
 	id: pageFields.id,
 	version: pageFields.version.nullable(),
+});
+
+export const setPageArchivedSchema = z.object({
+	id: pageFields.id,
+	archived: z.boolean(),
 });
 
 export const deletePageSchema = z.object({

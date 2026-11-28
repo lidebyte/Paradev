@@ -5924,6 +5924,9 @@ msgstr "無法新增儲存庫"
 msgid "Could not answer the agent"
 msgstr "無法回覆代理程式"
 
+msgid "Could not archive this page"
+msgstr "無法封存此頁面"
+
 msgid "Could not attach files"
 msgstr "無法新增附件"
 
@@ -6224,6 +6227,9 @@ msgstr "無法同步"
 
 msgid "Could not take a screenshot"
 msgstr "無法截圖"
+
+msgid "Could not unarchive this page"
+msgstr "無法取消封存此頁面"
 
 msgid "Could not undo"
 msgstr "無法撤銷"
@@ -9156,6 +9162,9 @@ msgstr "按@{normalizedSearch}篩選"
 
 msgid "Filter by author: {label}"
 msgstr "依作者篩選：{label}"
+
+msgid "Filter by project: {label}"
+msgstr "依專案篩選：{label}"
 
 msgid "Filter by reviews"
 msgstr "按審查篩選"
@@ -13009,6 +13018,9 @@ msgstr "暫無API金鑰。"
 msgid "No archived automations"
 msgstr "沒有已歸檔的自動化"
 
+msgid "No archived pages"
+msgstr "沒有已封存的頁面"
+
 msgid "No archived workspaces"
 msgstr "沒有已封存的工作區"
 
@@ -14904,6 +14916,9 @@ msgstr "頁面"
 msgid "Page actions"
 msgstr "頁面操作"
 
+msgid "Page archived"
+msgstr "頁面已封存"
+
 msgid "Page by you"
 msgstr "你建立的頁面"
 
@@ -14937,6 +14952,9 @@ msgstr "未設定頁面檢舉的速率限制"
 msgid "Page title"
 msgstr "頁面標題"
 
+msgid "Page unarchived"
+msgstr "頁面已取消封存"
+
 msgid "Pages"
 msgstr "頁面"
 
@@ -14951,6 +14969,9 @@ msgstr "能保存答案的頁面"
 
 msgid "Pages this agent is watching for comments"
 msgstr "此代理程式正在關注這些頁面的評論"
+
+msgid "Pages you archive are kept here."
+msgstr "你封存的頁面會保留在這裡。"
 
 msgid "pagination"
 msgstr "分頁"

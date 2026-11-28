@@ -5924,6 +5924,9 @@ msgstr "Repozitář se nepodařilo přidat"
 msgid "Could not answer the agent"
 msgstr "Agentovi se nepodařilo odpovědět"
 
+msgid "Could not archive this page"
+msgstr "Tuto stránku se nepodařilo archivovat"
+
 msgid "Could not attach files"
 msgstr "Soubory se nepodařilo přiložit"
 
@@ -6224,6 +6227,9 @@ msgstr "Synchronizace se nezdařila"
 
 msgid "Could not take a screenshot"
 msgstr "Nepodařilo se pořídit snímek obrazovky"
+
+msgid "Could not unarchive this page"
+msgstr "Archivaci této stránky se nepodařilo zrušit"
 
 msgid "Could not undo"
 msgstr "Nepodařilo se vrátit zpět"
@@ -9156,6 +9162,9 @@ msgstr "Filtrovat podle @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filtrovat podle autora: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filtrovat podle projektu: {label}"
 
 msgid "Filter by reviews"
 msgstr "Filtrovat podle revizí"
@@ -13009,6 +13018,9 @@ msgstr "Zatím žádné API klíče."
 msgid "No archived automations"
 msgstr "Žádné archivované automatizace"
 
+msgid "No archived pages"
+msgstr "Žádné archivované stránky"
+
 msgid "No archived workspaces"
 msgstr "Žádné archivované pracovní prostory"
 
@@ -14904,6 +14916,9 @@ msgstr "Stránka"
 msgid "Page actions"
 msgstr "Akce stránky"
 
+msgid "Page archived"
+msgstr "Stránka archivována"
+
 msgid "Page by you"
 msgstr "Stránka od vás"
 
@@ -14937,6 +14952,9 @@ msgstr "Omezení frekvence hlášení stránek není nastaveno"
 msgid "Page title"
 msgstr "Název stránky"
 
+msgid "Page unarchived"
+msgstr "Archivace stránky zrušena"
+
 msgid "Pages"
 msgstr "Stránky"
 
@@ -14951,6 +14969,9 @@ msgstr "Stránky, které ukládají odpovědi"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Stránky, které tento agent sleduje kvůli komentářům"
+
+msgid "Pages you archive are kept here."
+msgstr "Stránky, které archivujete, zůstávají zde."
 
 msgid "pagination"
 msgstr "stránkování"

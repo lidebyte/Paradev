@@ -5924,6 +5924,9 @@ msgstr "Nie udało się dodać repozytorium"
 msgid "Could not answer the agent"
 msgstr "Nie udało się odpowiedzieć agentowi"
 
+msgid "Could not archive this page"
+msgstr "Nie udało się zarchiwizować tej strony"
+
 msgid "Could not attach files"
 msgstr "Nie udało się załączyć plików"
 
@@ -6224,6 +6227,9 @@ msgstr "Nie udało się zsynchronizować"
 
 msgid "Could not take a screenshot"
 msgstr "Nie udało się zrobić zrzutu ekranu"
+
+msgid "Could not unarchive this page"
+msgstr "Nie udało się przywrócić tej strony z archiwum"
 
 msgid "Could not undo"
 msgstr "Nie udało się cofnąć"
@@ -9156,6 +9162,9 @@ msgstr "Filtruj wg @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filtruj według autora: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filtruj według projektu: {label}"
 
 msgid "Filter by reviews"
 msgstr "Filtruj wg przeglądów"
@@ -13009,6 +13018,9 @@ msgstr "Brak kluczy API."
 msgid "No archived automations"
 msgstr "Brak zarchiwizowanych automatyzacji"
 
+msgid "No archived pages"
+msgstr "Brak zarchiwizowanych stron"
+
 msgid "No archived workspaces"
 msgstr "Brak zarchiwizowanych obszarów roboczych"
 
@@ -14904,6 +14916,9 @@ msgstr "Strona"
 msgid "Page actions"
 msgstr "Akcje strony"
 
+msgid "Page archived"
+msgstr "Strona zarchiwizowana"
+
 msgid "Page by you"
 msgstr "Strona utworzona przez Ciebie"
 
@@ -14937,6 +14952,9 @@ msgstr "Limit zgłoszeń stron nie jest skonfigurowany"
 msgid "Page title"
 msgstr "Tytuł strony"
 
+msgid "Page unarchived"
+msgstr "Strona przywrócona z archiwum"
+
 msgid "Pages"
 msgstr "Strony"
 
@@ -14951,6 +14969,9 @@ msgstr "Strony, które zapisują odpowiedzi"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Strony, które ten agent obserwuje pod kątem komentarzy"
+
+msgid "Pages you archive are kept here."
+msgstr "Zarchiwizowane strony są przechowywane tutaj."
 
 msgid "pagination"
 msgstr "paginacja"

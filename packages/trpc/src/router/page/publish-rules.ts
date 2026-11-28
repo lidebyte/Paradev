@@ -1,4 +1,5 @@
 import { TRPCError } from "@trpc/server";
+import type { PublishPageInput } from "./schema";
 
 export const VERSION_CONFLICT_CONSTRAINT =
 	"page_versions_page_id_version_unique";
@@ -73,4 +74,20 @@ export function validateAssetPaths(
 		if (path === "index.html") refuse("would shadow the document");
 		if (path === "thumbnail.jpg") refuse("is reserved for the capture");
 	}
+}
+
+/** A new version brings an archived page back, or the publish would be invisible. */
+export function republishPatch(
+	input: Pick<PublishPageInput, "title" | "description" | "visibility">,
+	now: Date,
+) {
+	return {
+		updatedAt: now,
+		archivedAt: null,
+		...(input.title !== undefined ? { title: input.title } : {}),
+		...(input.description !== undefined
+			? { description: input.description }
+			: {}),
+		...(input.visibility !== undefined ? { visibility: input.visibility } : {}),
+	};
 }

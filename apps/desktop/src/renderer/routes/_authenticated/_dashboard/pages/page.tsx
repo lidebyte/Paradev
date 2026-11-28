@@ -7,6 +7,8 @@ export type PagesSearch = {
 	scope?: PageScope;
 	author?: string;
 	workspace?: string;
+	project?: string;
+	archived?: boolean;
 };
 
 export const Route = createFileRoute("/_authenticated/_dashboard/pages/")({
@@ -22,11 +24,16 @@ export const Route = createFileRoute("/_authenticated/_dashboard/pages/")({
 			typeof search.workspace === "string" && search.workspace
 				? search.workspace
 				: undefined,
+		project:
+			typeof search.project === "string" && search.project
+				? search.project
+				: undefined,
+		archived: search.archived === true ? true : undefined,
 	}),
 });
 
 function PagesPage() {
-	const { q, scope, author, workspace } = Route.useSearch();
+	const { q, scope, author, workspace, project, archived } = Route.useSearch();
 	const navigate = useNavigate({ from: Route.fullPath });
 	return (
 		<PagesView
@@ -34,6 +41,8 @@ function PagesPage() {
 			scope={scope ?? "all"}
 			authorId={author ?? null}
 			workspaceId={workspace ?? null}
+			projectId={project ?? null}
+			archived={archived ?? false}
 			onSearchChange={(value) =>
 				navigate({
 					search: (prev) => ({ ...prev, q: value || undefined }),
@@ -45,6 +54,7 @@ function PagesPage() {
 					search: (prev) => ({
 						...prev,
 						scope: value === "all" ? undefined : value,
+						archived: undefined,
 					}),
 					replace: true,
 				})
@@ -60,6 +70,19 @@ function PagesPage() {
 					search: (prev) => ({ ...prev, workspace: value ?? undefined }),
 					replace: true,
 				})
+			}
+			onProjectChange={(value) =>
+				navigate({
+					search: (prev) => ({
+						...prev,
+						project: value ?? undefined,
+						workspace: undefined,
+					}),
+					replace: true,
+				})
+			}
+			onShowArchived={() =>
+				navigate({ search: () => ({ archived: true }), replace: true })
 			}
 			onOpenPage={(page) =>
 				navigate({ to: "/pages/$slug", params: { slug: page.slug } })

@@ -5924,6 +5924,9 @@ msgstr "リポジトリを追加できませんでした"
 msgid "Could not answer the agent"
 msgstr "エージェントに応答できませんでした"
 
+msgid "Could not archive this page"
+msgstr "このページをアーカイブできませんでした"
+
 msgid "Could not attach files"
 msgstr "ファイルを添付できませんでした"
 
@@ -6224,6 +6227,9 @@ msgstr "同期できませんでした"
 
 msgid "Could not take a screenshot"
 msgstr "スクリーンショットを撮れませんでした"
+
+msgid "Could not unarchive this page"
+msgstr "このページのアーカイブを解除できませんでした"
 
 msgid "Could not undo"
 msgstr "取り消せませんでした"
@@ -9156,6 +9162,9 @@ msgstr "@{normalizedSearch}で絞り込む"
 
 msgid "Filter by author: {label}"
 msgstr "作成者で絞り込み: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "プロジェクトで絞り込み: {label}"
 
 msgid "Filter by reviews"
 msgstr "レビューで絞り込む"
@@ -13009,6 +13018,9 @@ msgstr "APIキーはまだありません。"
 msgid "No archived automations"
 msgstr "アーカイブ済みのオートメーションはありません"
 
+msgid "No archived pages"
+msgstr "アーカイブされたページはありません"
+
 msgid "No archived workspaces"
 msgstr "アーカイブ済みのワークスペースはありません"
 
@@ -14904,6 +14916,9 @@ msgstr "ページ"
 msgid "Page actions"
 msgstr "ページの操作"
 
+msgid "Page archived"
+msgstr "ページをアーカイブしました"
+
 msgid "Page by you"
 msgstr "自分が作成したページ"
 
@@ -14937,6 +14952,9 @@ msgstr "ページ報告のレート制限が設定されていません"
 msgid "Page title"
 msgstr "ページタイトル"
 
+msgid "Page unarchived"
+msgstr "ページのアーカイブを解除しました"
+
 msgid "Pages"
 msgstr "ページ"
 
@@ -14951,6 +14969,9 @@ msgstr "回答を保存できるページ"
 
 msgid "Pages this agent is watching for comments"
 msgstr "このエージェントがコメントを監視しているページ"
+
+msgid "Pages you archive are kept here."
+msgstr "アーカイブしたページはここに保管されます。"
 
 msgid "pagination"
 msgstr "ページネーション"

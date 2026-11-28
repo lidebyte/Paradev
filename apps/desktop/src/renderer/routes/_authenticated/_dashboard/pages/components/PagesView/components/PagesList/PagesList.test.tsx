@@ -53,6 +53,8 @@ function page(id: string) {
 		url: `https://app.superset.sh/page/page-${id}`,
 		thumbnailUrl: null,
 		visibility: "org",
+		organizationRole: "comment",
+		archivedAt: null,
 		createdAt: new Date("2026-01-01T00:00:00Z"),
 		updatedAt: new Date("2026-01-01T00:00:00Z"),
 		latestVersion: 1,
@@ -118,6 +120,7 @@ intersectionObserverHost.IntersectionObserver = TestIntersectionObserver;
 
 const onScopeChange = mock((_scope: string) => {});
 const onSearchChange = mock((_search: string) => {});
+const onShowArchived = mock(() => {});
 const PINS = ["pin-1", "pin-2"];
 
 function renderList({
@@ -125,6 +128,8 @@ function renderList({
 	search = "",
 	authorId = null as string | null,
 	workspaceId = null as string | null,
+	projectId = null as string | null,
+	archived = false,
 	currentUserId = undefined as string | undefined,
 	onTogglePin = mock((_pageId: string) => {}),
 } = {}) {
@@ -141,6 +146,10 @@ function renderList({
 				scope={scope}
 				authorId={authorId}
 				workspaceId={workspaceId}
+				projectId={projectId}
+				archived={archived}
+				onProjectChange={mock()}
+				onShowArchived={onShowArchived}
 				onSearchChange={onSearchChange}
 				onScopeChange={onScopeChange}
 				onAuthorChange={mock()}
@@ -151,6 +160,9 @@ function renderList({
 				favoritePageIdSet={new Set(PINS)}
 				onTogglePin={onTogglePin}
 				workspaceNames={new Map([["ws-1", "Workspace One"]])}
+				workspaceProjects={
+					new Map([["ws-1", { id: "project-1", name: "Project One" }]])
+				}
 				creatingWithAgent={false}
 				onCreateWithAgent={mock()}
 				searchDebounceMs={5}
@@ -181,6 +193,7 @@ const loadedPages = (view: ReturnType<typeof render>) =>
 beforeEach(() => {
 	onScopeChange.mockClear();
 	onSearchChange.mockClear();
+	onShowArchived.mockClear();
 	observed = [];
 	listInputs = [];
 	countsInputs = [];
@@ -228,6 +241,18 @@ describe("PagesList server-side filtering", () => {
 	test("asks for the pinned tab by id, because pins are not a server column", async () => {
 		await renderList({ scope: "pinned" }).settled();
 		expect(listInputs[0]).toMatchObject({ scope: "all", ids: PINS });
+	});
+
+	test("asks for archived pages only when the Archived filter is on", async () => {
+		await renderList({ archived: true }).settled();
+		expect(listInputs[0]).toMatchObject({ archived: true });
+		expect(countsInputs[0]).toMatchObject({ archived: true });
+	});
+
+	test("resolves a project to its workspaces that have pages", async () => {
+		await renderList({ projectId: "project-1" }).settled();
+		expect(listInputs[0]).toMatchObject({ workspaceIds: ["ws-1"] });
+		expect(listInputs[0]?.workspaceId).toBeUndefined();
 	});
 
 	test("asks for one batch, not the whole organization", async () => {
@@ -394,6 +419,39 @@ describe("PagesList pinned tab", () => {
 		await settled();
 		expect(view.queryByText("Pinned")).toBeTruthy();
 		expect(onScopeChange).not.toHaveBeenCalled();
+	});
+});
+
+describe("PagesList archived filter", () => {
+	test("pressing Archived asks the route to switch, which clears the rest", async () => {
+		const { view, settled } = renderList({ search: "report" });
+		await settled();
+		fireEvent.mouseDown(view.getByRole("tab", { name: "Archived" }), {
+			button: 0,
+			ctrlKey: false,
+		});
+		expect(onShowArchived).toHaveBeenCalledTimes(1);
+	});
+
+	test("a scope tab leaves the archived view through the scope change", async () => {
+		const { view, settled } = renderList({ archived: true });
+		await settled();
+		expect(
+			view.getByRole("tab", { name: "Archived" }).getAttribute("data-state"),
+		).toBe("active");
+		fireEvent.mouseDown(view.getByRole("tab", { name: /Team/ }), {
+			button: 0,
+			ctrlKey: false,
+		});
+		expect(onScopeChange).toHaveBeenCalledWith("team");
+		expect(onShowArchived).not.toHaveBeenCalled();
+	});
+
+	test("shows the pinned tab from the local pins before the counts answer", async () => {
+		answerCounts = neverAnswers;
+		const { view } = renderList();
+		await waitFor(() => expect(listInputs.length).toBeGreaterThan(0));
+		expect(view.queryByRole("tab", { name: /Pinned/ })).not.toBeNull();
 	});
 });
 

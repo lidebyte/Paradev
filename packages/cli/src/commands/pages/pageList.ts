@@ -7,6 +7,7 @@ type PageList = RouterOutputs["page"]["listPaginated"];
 export interface PageListQuery {
 	workspaceId?: string;
 	search?: string;
+	archived?: boolean;
 	limit?: number;
 }
 

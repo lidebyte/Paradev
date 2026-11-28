@@ -5924,6 +5924,9 @@ msgstr "Không thể thêm repository"
 msgid "Could not answer the agent"
 msgstr "Không thể trả lời agent"
 
+msgid "Could not archive this page"
+msgstr "Không thể lưu trữ trang này"
+
 msgid "Could not attach files"
 msgstr "Không thể đính kèm tệp"
 
@@ -6224,6 +6227,9 @@ msgstr "Không thể đồng bộ"
 
 msgid "Could not take a screenshot"
 msgstr "Không thể chụp màn hình"
+
+msgid "Could not unarchive this page"
+msgstr "Không thể bỏ lưu trữ trang này"
 
 msgid "Could not undo"
 msgstr "Không thể hoàn tác"
@@ -9156,6 +9162,9 @@ msgstr "Lọc theo @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Lọc theo tác giả: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Lọc theo dự án: {label}"
 
 msgid "Filter by reviews"
 msgstr "Lọc theo review"
@@ -13009,6 +13018,9 @@ msgstr "Chưa có khóa API nào."
 msgid "No archived automations"
 msgstr "Không có tự động hóa nào đã lưu trữ"
 
+msgid "No archived pages"
+msgstr "Không có trang nào đã lưu trữ"
+
 msgid "No archived workspaces"
 msgstr "Không có workspace nào đã lưu trữ"
 
@@ -14904,6 +14916,9 @@ msgstr "Trang"
 msgid "Page actions"
 msgstr "Thao tác với trang"
 
+msgid "Page archived"
+msgstr "Đã lưu trữ trang"
+
 msgid "Page by you"
 msgstr "Trang do bạn tạo"
 
@@ -14937,6 +14952,9 @@ msgstr "Chưa cấu hình giới hạn tần suất báo cáo trang"
 msgid "Page title"
 msgstr "Tiêu đề trang"
 
+msgid "Page unarchived"
+msgstr "Đã bỏ lưu trữ trang"
+
 msgid "Pages"
 msgstr "Trang"
 
@@ -14951,6 +14969,9 @@ msgstr "Trang có thể lưu câu trả lời"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Các trang agent này đang theo dõi bình luận"
+
+msgid "Pages you archive are kept here."
+msgstr "Các trang bạn lưu trữ được giữ ở đây."
 
 msgid "pagination"
 msgstr "phân trang"

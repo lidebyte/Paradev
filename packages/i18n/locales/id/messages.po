@@ -5924,6 +5924,9 @@ msgstr "Tidak dapat menambahkan repositori"
 msgid "Could not answer the agent"
 msgstr "Tidak dapat menjawab agen"
 
+msgid "Could not archive this page"
+msgstr "Tidak dapat mengarsipkan halaman ini"
+
 msgid "Could not attach files"
 msgstr "Tidak bisa melampirkan file"
 
@@ -6224,6 +6227,9 @@ msgstr "Tidak dapat menyinkronkan"
 
 msgid "Could not take a screenshot"
 msgstr "Tidak bisa mengambil tangkapan layar"
+
+msgid "Could not unarchive this page"
+msgstr "Tidak dapat membatalkan arsip halaman ini"
 
 msgid "Could not undo"
 msgstr "Tidak bisa mengurungkan"
@@ -9156,6 +9162,9 @@ msgstr "Filter menurut @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filter menurut penulis: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filter menurut proyek: {label}"
 
 msgid "Filter by reviews"
 msgstr "Filter menurut review"
@@ -13009,6 +13018,9 @@ msgstr "Belum ada kunci API."
 msgid "No archived automations"
 msgstr "Tidak ada otomatisasi yang diarsipkan"
 
+msgid "No archived pages"
+msgstr "Tidak ada halaman yang diarsipkan"
+
 msgid "No archived workspaces"
 msgstr "Tidak ada workspace yang diarsipkan"
 
@@ -14904,6 +14916,9 @@ msgstr "Halaman"
 msgid "Page actions"
 msgstr "Tindakan halaman"
 
+msgid "Page archived"
+msgstr "Halaman diarsipkan"
+
 msgid "Page by you"
 msgstr "Halaman oleh Anda"
 
@@ -14937,6 +14952,9 @@ msgstr "Batas laju pelaporan halaman belum dikonfigurasi"
 msgid "Page title"
 msgstr "Judul halaman"
 
+msgid "Page unarchived"
+msgstr "Arsip halaman dibatalkan"
+
 msgid "Pages"
 msgstr "Halaman"
 
@@ -14951,6 +14969,9 @@ msgstr "Halaman yang menyimpan jawaban"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Halaman yang dipantau agen ini untuk komentar"
+
+msgid "Pages you archive are kept here."
+msgstr "Halaman yang Anda arsipkan disimpan di sini."
 
 msgid "pagination"
 msgstr "paginasi"

@@ -5924,6 +5924,9 @@ msgstr "Could not add repository"
 msgid "Could not answer the agent"
 msgstr "Could not answer the agent"
 
+msgid "Could not archive this page"
+msgstr "Could not archive this page"
+
 msgid "Could not attach files"
 msgstr "Could not attach files"
 
@@ -6224,6 +6227,9 @@ msgstr "Could not sync"
 
 msgid "Could not take a screenshot"
 msgstr "Could not take a screenshot"
+
+msgid "Could not unarchive this page"
+msgstr "Could not unarchive this page"
 
 msgid "Could not undo"
 msgstr "Could not undo"
@@ -9156,6 +9162,9 @@ msgstr "Filter by @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filter by author: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filter by project: {label}"
 
 msgid "Filter by reviews"
 msgstr "Filter by reviews"
@@ -13009,6 +13018,9 @@ msgstr "No API keys yet."
 msgid "No archived automations"
 msgstr "No archived automations"
 
+msgid "No archived pages"
+msgstr "No archived pages"
+
 msgid "No archived workspaces"
 msgstr "No archived workspaces"
 
@@ -14904,6 +14916,9 @@ msgstr "Page"
 msgid "Page actions"
 msgstr "Page actions"
 
+msgid "Page archived"
+msgstr "Page archived"
+
 msgid "Page by you"
 msgstr "Page by you"
 
@@ -14937,6 +14952,9 @@ msgstr "Page report rate limiting is not configured"
 msgid "Page title"
 msgstr "Page title"
 
+msgid "Page unarchived"
+msgstr "Page unarchived"
+
 msgid "Pages"
 msgstr "Pages"
 
@@ -14951,6 +14969,9 @@ msgstr "Pages that save answers"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Pages this agent is watching for comments"
+
+msgid "Pages you archive are kept here."
+msgstr "Pages you archive are kept here."
 
 msgid "pagination"
 msgstr "pagination"

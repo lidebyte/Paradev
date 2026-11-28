@@ -8,7 +8,7 @@ import {
 	EmptyTitle,
 } from "@superset/ui/empty";
 import { Skeleton } from "@superset/ui/skeleton";
-import { LuFileText, LuPlus, LuSearchX } from "react-icons/lu";
+import { LuArchive, LuFileText, LuPlus, LuSearchX } from "react-icons/lu";
 import { THUMBNAIL_ASPECT_RATIO } from "renderer/routes/_authenticated/_dashboard/components/PageThumbnail";
 import { PageCard, type PageCardItem } from "./components/PageCard";
 
@@ -30,8 +30,10 @@ interface PagesGridProps {
 	isPending: boolean;
 	error?: string;
 	hasFilters: boolean;
+	archived: boolean;
 	onOpen: (page: PageCardItem, event: React.MouseEvent) => void;
 	onTogglePin: (pageId: string) => void;
+	onSetArchived: (pageId: string, archived: boolean) => Promise<void>;
 	onDelete: (pageId: string) => Promise<void>;
 	onDuplicate: (pageId: string, title: string) => Promise<void>;
 }
@@ -45,8 +47,10 @@ export function PagesGrid({
 	isPending,
 	error,
 	hasFilters,
+	archived,
 	onOpen,
 	onTogglePin,
+	onSetArchived,
 	onDelete,
 	onDuplicate,
 }: PagesGridProps) {
@@ -74,6 +78,24 @@ export function PagesGrid({
 
 	if (error) {
 		return <p className="mt-6 text-muted-foreground text-sm">{error}</p>;
+	}
+
+	if (pages.length === 0 && archived && !hasFilters) {
+		return (
+			<Empty className="my-auto min-h-80 border-0 py-20 md:py-20">
+				<EmptyHeader>
+					<EmptyMedia variant="icon">
+						<LuArchive className="size-5" />
+					</EmptyMedia>
+					<EmptyTitle>
+						<Trans>No archived pages</Trans>
+					</EmptyTitle>
+					<EmptyDescription>
+						<Trans>Pages you archive are kept here.</Trans>
+					</EmptyDescription>
+				</EmptyHeader>
+			</Empty>
+		);
 	}
 
 	if (pages.length === 0) {
@@ -129,6 +151,7 @@ export function PagesGrid({
 					currentUserId={currentUserId}
 					onOpen={onOpen}
 					onTogglePin={onTogglePin}
+					onSetArchived={onSetArchived}
 					onDelete={onDelete}
 					onDuplicate={onDuplicate}
 				/>

@@ -5924,6 +5924,9 @@ msgstr "리포지토리를 추가할 수 없습니다"
 msgid "Could not answer the agent"
 msgstr "에이전트에 응답할 수 없습니다"
 
+msgid "Could not archive this page"
+msgstr "이 페이지를 보관할 수 없습니다"
+
 msgid "Could not attach files"
 msgstr "파일을 첨부할 수 없습니다"
 
@@ -6224,6 +6227,9 @@ msgstr "동기화할 수 없습니다"
 
 msgid "Could not take a screenshot"
 msgstr "스크린샷을 찍을 수 없습니다"
+
+msgid "Could not unarchive this page"
+msgstr "이 페이지의 보관을 해제할 수 없습니다"
 
 msgid "Could not undo"
 msgstr "실행 취소할 수 없습니다"
@@ -9156,6 +9162,9 @@ msgstr "@{normalizedSearch}(으)로 필터링"
 
 msgid "Filter by author: {label}"
 msgstr "작성자별 필터: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "프로젝트로 필터링: {label}"
 
 msgid "Filter by reviews"
 msgstr "리뷰로 필터링"
@@ -13009,6 +13018,9 @@ msgstr "아직 API 키가 없습니다."
 msgid "No archived automations"
 msgstr "보관된 자동화가 없습니다"
 
+msgid "No archived pages"
+msgstr "보관된 페이지 없음"
+
 msgid "No archived workspaces"
 msgstr "보관된 워크스페이스가 없습니다"
 
@@ -14904,6 +14916,9 @@ msgstr "페이지"
 msgid "Page actions"
 msgstr "페이지 작업"
 
+msgid "Page archived"
+msgstr "페이지를 보관했습니다"
+
 msgid "Page by you"
 msgstr "내가 만든 페이지"
 
@@ -14937,6 +14952,9 @@ msgstr "페이지 신고 속도 제한이 설정되지 않았습니다"
 msgid "Page title"
 msgstr "페이지 제목"
 
+msgid "Page unarchived"
+msgstr "페이지 보관을 해제했습니다"
+
 msgid "Pages"
 msgstr "페이지"
 
@@ -14951,6 +14969,9 @@ msgstr "답변을 저장하는 페이지"
 
 msgid "Pages this agent is watching for comments"
 msgstr "이 에이전트가 댓글을 감시 중인 페이지"
+
+msgid "Pages you archive are kept here."
+msgstr "보관한 페이지는 여기에 유지됩니다."
 
 msgid "pagination"
 msgstr "페이지 매김"

@@ -5924,6 +5924,9 @@ msgstr "Repository konnte nicht hinzugefügt werden"
 msgid "Could not answer the agent"
 msgstr "Antwort an den Agenten nicht möglich"
 
+msgid "Could not archive this page"
+msgstr "Diese Seite konnte nicht archiviert werden"
+
 msgid "Could not attach files"
 msgstr "Dateien konnten nicht angehängt werden"
 
@@ -6224,6 +6227,9 @@ msgstr "Synchronisierung fehlgeschlagen"
 
 msgid "Could not take a screenshot"
 msgstr "Es konnte kein Screenshot erstellt werden"
+
+msgid "Could not unarchive this page"
+msgstr "Die Archivierung dieser Seite konnte nicht aufgehoben werden"
 
 msgid "Could not undo"
 msgstr "Rückgängig machen nicht möglich"
@@ -9156,6 +9162,9 @@ msgstr "Nach @{normalizedSearch} filtern"
 
 msgid "Filter by author: {label}"
 msgstr "Nach Autor filtern: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Nach Projekt filtern: {label}"
 
 msgid "Filter by reviews"
 msgstr "Nach Reviews filtern"
@@ -13009,6 +13018,9 @@ msgstr "Noch keine API-Schlüssel."
 msgid "No archived automations"
 msgstr "Keine archivierten Automatisierungen"
 
+msgid "No archived pages"
+msgstr "Keine archivierten Seiten"
+
 msgid "No archived workspaces"
 msgstr "Keine archivierten Arbeitsbereiche"
 
@@ -14904,6 +14916,9 @@ msgstr "Seite"
 msgid "Page actions"
 msgstr "Seitenaktionen"
 
+msgid "Page archived"
+msgstr "Seite archiviert"
+
 msgid "Page by you"
 msgstr "Seite von dir"
 
@@ -14937,6 +14952,9 @@ msgstr "Die Ratenbegrenzung für Seitenmeldungen ist nicht konfiguriert"
 msgid "Page title"
 msgstr "Seitentitel"
 
+msgid "Page unarchived"
+msgstr "Archivierung der Seite aufgehoben"
+
 msgid "Pages"
 msgstr "Seiten"
 
@@ -14951,6 +14969,9 @@ msgstr "Seiten, die Antworten speichern"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Seiten, die dieser Agent auf Kommentare beobachtet"
+
+msgid "Pages you archive are kept here."
+msgstr "Archivierte Seiten bleiben hier erhalten."
 
 msgid "pagination"
 msgstr "Seitennavigation"

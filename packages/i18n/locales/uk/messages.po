@@ -5918,6 +5918,9 @@ msgstr "Не вдалося додати репозиторій"
 msgid "Could not answer the agent"
 msgstr "Не вдалося відповісти агенту"
 
+msgid "Could not archive this page"
+msgstr "Не вдалося архівувати цю сторінку"
+
 msgid "Could not attach files"
 msgstr "Не вдалося прикріпити файли"
 
@@ -6218,6 +6221,9 @@ msgstr "Не вдалося синхронізувати"
 
 msgid "Could not take a screenshot"
 msgstr "Не вдалося зробити знімок екрана"
+
+msgid "Could not unarchive this page"
+msgstr "Не вдалося розархівувати цю сторінку"
 
 msgid "Could not undo"
 msgstr "Не вдалося скасувати дію"
@@ -9150,6 +9156,9 @@ msgstr "Фільтрувати за @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Фільтр за автором: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Фільтр за проєктом: {label}"
 
 msgid "Filter by reviews"
 msgstr "Фільтрувати за рев'ю"
@@ -13003,6 +13012,9 @@ msgstr "Ключів API ще немає."
 msgid "No archived automations"
 msgstr "Немає архівованих автоматизацій"
 
+msgid "No archived pages"
+msgstr "Немає архівованих сторінок"
+
 msgid "No archived workspaces"
 msgstr "Немає архівованих робочих просторів"
 
@@ -14898,6 +14910,9 @@ msgstr "Сторінка"
 msgid "Page actions"
 msgstr "Дії зі сторінкою"
 
+msgid "Page archived"
+msgstr "Сторінку архівовано"
+
 msgid "Page by you"
 msgstr "Ваша сторінка"
 
@@ -14931,6 +14946,9 @@ msgstr "Обмеження частоти скарг на сторінки не 
 msgid "Page title"
 msgstr "Назва сторінки"
 
+msgid "Page unarchived"
+msgstr "Сторінку розархівовано"
+
 msgid "Pages"
 msgstr "Сторінки"
 
@@ -14945,6 +14963,9 @@ msgstr "Сторінки, які зберігають відповіді"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Сторінки, на яких цей агент стежить за коментарями"
+
+msgid "Pages you archive are kept here."
+msgstr "Архівовані сторінки зберігаються тут."
 
 msgid "pagination"
 msgstr "пагінація"

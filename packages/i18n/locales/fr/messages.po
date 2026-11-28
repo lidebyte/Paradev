@@ -5924,6 +5924,9 @@ msgstr "Impossible d'ajouter le dépôt"
 msgid "Could not answer the agent"
 msgstr "Impossible de répondre à l'agent"
 
+msgid "Could not archive this page"
+msgstr "Impossible d’archiver cette page"
+
 msgid "Could not attach files"
 msgstr "Impossible de joindre les fichiers"
 
@@ -6224,6 +6227,9 @@ msgstr "Impossible de synchroniser"
 
 msgid "Could not take a screenshot"
 msgstr "Impossible de prendre une capture d'écran"
+
+msgid "Could not unarchive this page"
+msgstr "Impossible de désarchiver cette page"
 
 msgid "Could not undo"
 msgstr "Impossible d’annuler"
@@ -9156,6 +9162,9 @@ msgstr "Filtrer par @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filtrer par auteur : {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filtrer par projet : {label}"
 
 msgid "Filter by reviews"
 msgstr "Filtrer par revues"
@@ -13009,6 +13018,9 @@ msgstr "Aucune clé API pour l'instant."
 msgid "No archived automations"
 msgstr "Aucune automatisation archivée"
 
+msgid "No archived pages"
+msgstr "Aucune page archivée"
+
 msgid "No archived workspaces"
 msgstr "Aucun espace de travail archivé"
 
@@ -14904,6 +14916,9 @@ msgstr "Page"
 msgid "Page actions"
 msgstr "Actions de la page"
 
+msgid "Page archived"
+msgstr "Page archivée"
+
 msgid "Page by you"
 msgstr "Page créée par vous"
 
@@ -14937,6 +14952,9 @@ msgstr "La limitation de débit des signalements de page n'est pas configurée"
 msgid "Page title"
 msgstr "Titre de la page"
 
+msgid "Page unarchived"
+msgstr "Page désarchivée"
+
 msgid "Pages"
 msgstr "Pages"
 
@@ -14951,6 +14969,9 @@ msgstr "Des pages qui enregistrent les réponses"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Pages dont cet agent surveille les commentaires"
+
+msgid "Pages you archive are kept here."
+msgstr "Les pages que vous archivez sont conservées ici."
 
 msgid "pagination"
 msgstr "pagination"

@@ -10,6 +10,7 @@ mock.module("../../lib/r2", () => ({
 	getObject: async () => null,
 	headObject: async () => null,
 	copyObject: async () => {},
+	listObjects: async () => [],
 	deleteObjects: async () => {},
 	objectExists: async () => true,
 }));
@@ -234,6 +235,65 @@ describe("page.list filters", () => {
 	test("authorId narrows to that author", async () => {
 		const mine = await walk({ authorId: OTHER_USER });
 		expect(mine.length).toBeGreaterThan(0);
+	});
+});
+
+describe("page.setArchived", () => {
+	test("an archived page leaves the list and the counts until it is unarchived", async () => {
+		const [target] = (
+			await caller.page.listPaginated({ authorId: USER, limit: 1 })
+		).items;
+		if (!target) throw new Error("no page to archive");
+		const before = (await caller.page.counts()).all;
+
+		await caller.page.setArchived({ id: target.id, archived: true });
+		const hidden = await caller.page.listPaginated({ ids: [target.id] });
+		const archived = await caller.page.listPaginated({ archived: true });
+		const counts = await caller.page.counts();
+		const archivedCounts = await caller.page.counts({ archived: true });
+
+		await caller.page.setArchived({ id: target.id, archived: false });
+		const restored = await caller.page.listPaginated({ ids: [target.id] });
+
+		expect(hidden.items).toEqual([]);
+		expect(archived.items.map((item) => item.id)).toEqual([target.id]);
+		expect(counts.all).toBe(before - 1);
+		expect(archivedCounts.all).toBe(1);
+		expect(restored.items.map((item) => item.id)).toEqual([target.id]);
+	});
+
+	test("someone who can only read a page cannot archive it", async () => {
+		const [target] = (
+			await caller.page.listPaginated({
+				authorId: USER,
+				scope: "team",
+				limit: 1,
+			})
+		).items;
+		if (!target) throw new Error("no shared page");
+		await db
+			.update(pages)
+			.set({ organizationRole: "view" })
+			.where(eq(pages.id, target.id));
+
+		await expect(
+			callerFor(OTHER_USER).page.setArchived({ id: target.id, archived: true }),
+		).rejects.toThrow();
+	});
+});
+
+describe("page.list workspaceIds", () => {
+	test("narrows the list and the counts to pages linked to any of them", async () => {
+		const input = { workspaceIds: [WORKSPACE, crypto.randomUUID()] };
+		const listed = await caller.page.listPaginated(input);
+		const counts = await caller.page.counts(input);
+
+		expect(listed.items).toHaveLength(1);
+		expect(counts.all).toBe(1);
+		expect(counts.authors.map((row) => row.userId)).toEqual([USER]);
+		expect(
+			(await caller.page.listPaginated({ workspaceIds: [] })).items,
+		).toEqual([]);
 	});
 });
 

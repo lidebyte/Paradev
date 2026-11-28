@@ -5924,6 +5924,9 @@ msgstr "Impossibile aggiungere il repository"
 msgid "Could not answer the agent"
 msgstr "Impossibile rispondere all'agente"
 
+msgid "Could not archive this page"
+msgstr "Impossibile archiviare questa pagina"
+
 msgid "Could not attach files"
 msgstr "Impossibile allegare i file"
 
@@ -6224,6 +6227,9 @@ msgstr "Impossibile sincronizzare"
 
 msgid "Could not take a screenshot"
 msgstr "Impossibile fare uno screenshot"
+
+msgid "Could not unarchive this page"
+msgstr "Impossibile annullare l’archiviazione di questa pagina"
 
 msgid "Could not undo"
 msgstr "Impossibile annullare"
@@ -9156,6 +9162,9 @@ msgstr "Filtra per @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filtra per autore: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filtra per progetto: {label}"
 
 msgid "Filter by reviews"
 msgstr "Filtra per revisioni"
@@ -13009,6 +13018,9 @@ msgstr "Ancora nessuna chiave API."
 msgid "No archived automations"
 msgstr "Nessuna automazione archiviata"
 
+msgid "No archived pages"
+msgstr "Nessuna pagina archiviata"
+
 msgid "No archived workspaces"
 msgstr "Nessun workspace archiviato"
 
@@ -14904,6 +14916,9 @@ msgstr "Pagina"
 msgid "Page actions"
 msgstr "Azioni della pagina"
 
+msgid "Page archived"
+msgstr "Pagina archiviata"
+
 msgid "Page by you"
 msgstr "Pagina creata da te"
 
@@ -14937,6 +14952,9 @@ msgstr "Il limite di frequenza per le segnalazioni di pagina non è configurato"
 msgid "Page title"
 msgstr "Titolo della pagina"
 
+msgid "Page unarchived"
+msgstr "Archiviazione della pagina annullata"
+
 msgid "Pages"
 msgstr "Pagine"
 
@@ -14951,6 +14969,9 @@ msgstr "Pagine che salvano le risposte"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Pagine che questo agente osserva per i commenti"
+
+msgid "Pages you archive are kept here."
+msgstr "Le pagine che archivi vengono conservate qui."
 
 msgid "pagination"
 msgstr "impaginazione"

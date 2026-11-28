@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import {
 	isVersionConflict,
+	republishPatch,
 	titleFromFilename,
 	validateAssetPaths,
 } from "./publish-rules";
@@ -81,5 +82,22 @@ describe("validateAssetPaths", () => {
 		expect(() =>
 			validateAssetPaths([{ path: "a.png" }, { path: "a.png" }]),
 		).toThrow();
+	});
+});
+
+describe("republishPatch", () => {
+	const now = new Date("2026-01-02T03:04:05Z");
+
+	test("unarchives the page and leaves unset metadata alone", () => {
+		expect(republishPatch({}, now)).toEqual({
+			updatedAt: now,
+			archivedAt: null,
+		});
+	});
+
+	test("carries the metadata that was passed, including an empty description", () => {
+		expect(
+			republishPatch({ title: "New", description: "", visibility: "org" }, now),
+		).toMatchObject({ title: "New", description: "", visibility: "org" });
 	});
 });

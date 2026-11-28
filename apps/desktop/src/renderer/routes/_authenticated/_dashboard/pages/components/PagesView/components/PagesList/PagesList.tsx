@@ -1,8 +1,10 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { COMPANY } from "@superset/shared/constants";
+import { PAGE_LIST_MAX_WORKSPACE_IDS } from "@superset/trpc/page-schema";
 import { Input } from "@superset/ui/input";
 import { toast } from "@superset/ui/sonner";
 import { Tabs, TabsList, TabsTrigger } from "@superset/ui/tabs";
+import { keepPreviousData } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import { cloudTrpc } from "renderer/lib/cloud-trpc";
@@ -11,9 +13,11 @@ import { LoadMoreSentinel } from "renderer/routes/_authenticated/_dashboard/comp
 import { useDebouncedSearchNavigation } from "renderer/routes/_authenticated/_dashboard/hooks/useDebouncedSearchNavigation";
 import { usePagesList } from "renderer/routes/_authenticated/_dashboard/hooks/usePagesList";
 import { pagesListInput } from "renderer/routes/_authenticated/_dashboard/utils/pagesListInput";
+import type { PageProject } from "../../../../hooks/usePageWorkspaceProjects";
 import { type PageScope, serverScope } from "../../../../utils/pageScope";
 import { PagesGrid } from "../../../PagesGrid";
 import { AuthorFilter, type PageAuthorOption } from "../AuthorFilter";
+import { type PageProjectOption, ProjectFilter } from "../ProjectFilter";
 import { type PageWorkspaceOption, WorkspaceFilter } from "../WorkspaceFilter";
 
 const TABS: Array<{ value: PageScope }> = [
@@ -24,21 +28,29 @@ const TABS: Array<{ value: PageScope }> = [
 	{ value: "mine" },
 ];
 
+const ARCHIVED_TAB = "archived";
+
 export interface PagesListProps {
 	search: string;
 	scope: PageScope;
 	authorId: string | null;
 	workspaceId: string | null;
+	projectId: string | null;
+	archived: boolean;
 	onSearchChange: (search: string) => void;
 	onScopeChange: (scope: PageScope) => void;
 	onAuthorChange: (authorId: string | null) => void;
 	onWorkspaceChange: (workspaceId: string | null) => void;
+	onProjectChange: (projectId: string | null) => void;
+	/** Turning it on clears every other filter. */
+	onShowArchived: () => void;
 	onOpenPage: (page: { slug: string }) => void;
 	currentUserId: string | undefined;
 	favoritePageIds: string[];
 	favoritePageIdSet: ReadonlySet<string>;
 	onTogglePin: (pageId: string) => void;
 	workspaceNames: Map<string, string>;
+	workspaceProjects: Map<string, PageProject>;
 	creatingWithAgent: boolean;
 	onCreateWithAgent: () => void;
 	searchDebounceMs?: number;
@@ -49,16 +61,21 @@ export function PagesList({
 	scope,
 	authorId,
 	workspaceId,
+	projectId,
+	archived,
 	onSearchChange,
 	onScopeChange,
 	onAuthorChange,
 	onWorkspaceChange,
+	onProjectChange,
+	onShowArchived,
 	onOpenPage,
 	currentUserId,
 	favoritePageIds,
 	favoritePageIdSet,
 	onTogglePin,
 	workspaceNames,
+	workspaceProjects,
 	creatingWithAgent,
 	onCreateWithAgent,
 	searchDebounceMs,
@@ -75,10 +92,8 @@ export function PagesList({
 	// grid stayed unfiltered.
 	const [searchInput, setSearchInput] = useState(search);
 	useEffect(() => setSearchInput(search), [search]);
-	const { scheduleSearchNavigation } = useDebouncedSearchNavigation(
-		onSearchChange,
-		searchDebounceMs,
-	);
+	const { scheduleSearchNavigation, cancelPendingSearchNavigation } =
+		useDebouncedSearchNavigation(onSearchChange, searchDebounceMs);
 	const handleSearchChange = useCallback(
 		(value: string) => {
 			setSearchInput(value);
@@ -87,27 +102,70 @@ export function PagesList({
 		[scheduleSearchNavigation],
 	);
 
+	const showArchived = () => {
+		if (archived) return;
+		// Unlike the other filters, this one clears the search, so a pending
+		// one must not land after it.
+		cancelPendingSearchNavigation();
+		onShowArchived();
+	};
+
+	const unscopedCountsInput = useMemo(
+		() => ({
+			...(search ? { search } : {}),
+			...(authorId ? { authorId } : {}),
+			...(archived ? { archived } : {}),
+			pinnedIds: favoritePageIds,
+		}),
+		[search, authorId, archived, favoritePageIds],
+	);
+	// Never narrowed by workspace or project: it is what those two pickers
+	// offer, and what a project resolves to.
+	const breakdownQuery = cloudTrpc.page.counts.useQuery(unscopedCountsInput, {
+		placeholderData: keepPreviousData,
+	});
+	const linkedWorkspaces = breakdownQuery.data?.workspaces;
+	const breakdownIsCurrent =
+		breakdownQuery.data !== undefined && !breakdownQuery.isPlaceholderData;
+
+	const projectWorkspaceIds = useMemo(() => {
+		if (!projectId || !linkedWorkspaces) return [];
+		return linkedWorkspaces
+			.filter((row) => workspaceProjects.get(row.workspaceId)?.id === projectId)
+			.sort((a, b) => b.count - a.count)
+			.slice(0, PAGE_LIST_MAX_WORKSPACE_IDS)
+			.map((row) => row.workspaceId)
+			.sort();
+	}, [projectId, linkedWorkspaces, workspaceProjects]);
+
+	const workspaceScope = useMemo(() => {
+		if (workspaceId) return { workspaceId };
+		if (projectId) return { workspaceIds: projectWorkspaceIds };
+		return {};
+	}, [workspaceId, projectId, projectWorkspaceIds]);
+	const scopeResolved =
+		workspaceId !== null || projectId === null || breakdownIsCurrent;
+
 	const filter = useMemo(
 		() => ({
 			...(search ? { search } : {}),
 			scope: serverScope(scope),
 			...(authorId ? { authorId } : {}),
-			...(workspaceId ? { workspaceId } : {}),
+			...workspaceScope,
 			...(scope === "pinned" ? { ids: favoritePageIds } : {}),
+			...(archived ? { archived } : {}),
 		}),
-		[search, scope, authorId, workspaceId, favoritePageIds],
+		[search, scope, authorId, workspaceScope, favoritePageIds, archived],
 	);
 
-	const pages = usePagesList(filter);
+	const pages = usePagesList(filter, { enabled: scopeResolved });
 	const { items, hasNextPage, isFetchingNextPage, scrollRef, sentinelRef } =
 		pages;
 
-	const countsQuery = cloudTrpc.page.counts.useQuery({
-		...(search ? { search } : {}),
-		...(authorId ? { authorId } : {}),
-		...(workspaceId ? { workspaceId } : {}),
-		pinnedIds: favoritePageIds,
-	});
+	const countsQuery = cloudTrpc.page.counts.useQuery(
+		{ ...unscopedCountsInput, ...workspaceScope },
+		{ enabled: scopeResolved, placeholderData: keepPreviousData },
+	);
 	const counts = useMemo(
 		() => ({
 			all: countsQuery.data?.all ?? 0,
@@ -120,33 +178,49 @@ export function PagesList({
 	);
 
 	const listInput = useMemo(() => pagesListInput(filter), [filter]);
+	const dropFromList = async ({ id }: { id: string }) => {
+		await utils.page.listPaginated.cancel(listInput);
+		const previous = utils.page.listPaginated.getInfiniteData(listInput);
+		utils.page.listPaginated.setInfiniteData(listInput, (old) =>
+			old
+				? {
+						...old,
+						pages: old.pages.map((page) => ({
+							...page,
+							items: page.items.filter((entry) => entry.id !== id),
+						})),
+					}
+				: old,
+		);
+		return { previous };
+	};
+	const restoreList = (
+		_error: unknown,
+		_variables: unknown,
+		context: Awaited<ReturnType<typeof dropFromList>> | undefined,
+	) => {
+		if (context?.previous) {
+			utils.page.listPaginated.setInfiniteData(listInput, context.previous);
+		}
+	};
+
 	const deletePage = cloudTrpc.page.delete.useMutation({
-		onMutate: async ({ id }) => {
-			await utils.page.listPaginated.cancel(listInput);
-			const previous = utils.page.listPaginated.getInfiniteData(listInput);
-			utils.page.listPaginated.setInfiniteData(listInput, (old) =>
-				old
-					? {
-							...old,
-							pages: old.pages.map((page) => ({
-								...page,
-								items: page.items.filter((entry) => entry.id !== id),
-							})),
-						}
-					: old,
-			);
-			return { previous };
-		},
-		onError: (_error, _variables, context) => {
-			if (context?.previous) {
-				utils.page.listPaginated.setInfiniteData(listInput, context.previous);
-			}
-		},
+		onMutate: dropFromList,
+		onError: restoreList,
 		onSuccess: (_data, { id }) => {
 			if (favoritePageIdSet.has(id)) onTogglePin(id);
 		},
 		onSettled: () => {
 			void utils.page.listPaginated.invalidate(listInput);
+			void utils.page.counts.invalidate();
+		},
+	});
+
+	const setPageArchived = cloudTrpc.page.setArchived.useMutation({
+		onMutate: dropFromList,
+		onError: restoreList,
+		onSettled: () => {
+			void utils.page.listPaginated.invalidate();
 			void utils.page.counts.invalidate();
 		},
 	});
@@ -190,37 +264,62 @@ export function PagesList({
 
 	const workspaceOptions = useMemo<PageWorkspaceOption[]>(
 		() =>
-			(countsQuery.data?.workspaces ?? [])
-				.filter((row) => workspaceNames.has(row.workspaceId))
+			(linkedWorkspaces ?? [])
+				.filter(
+					(row) =>
+						workspaceNames.has(row.workspaceId) &&
+						(projectId === null ||
+							workspaceProjects.get(row.workspaceId)?.id === projectId),
+				)
 				.map((row) => ({
 					workspaceId: row.workspaceId,
 					name: workspaceNames.get(row.workspaceId) ?? row.workspaceId,
 					count: row.count,
 				}))
 				.sort((a, b) => a.name.localeCompare(b.name)),
-		[countsQuery.data, workspaceNames],
+		[linkedWorkspaces, workspaceNames, workspaceProjects, projectId],
 	);
 
+	const projectOptions = useMemo<PageProjectOption[]>(() => {
+		const names = new Map<string, string>();
+		for (const row of linkedWorkspaces ?? []) {
+			const project = workspaceProjects.get(row.workspaceId);
+			if (project) names.set(project.id, project.name);
+		}
+		return [...names]
+			.map(([id, name]) => ({ projectId: id, name }))
+			.sort((a, b) => a.name.localeCompare(b.name));
+	}, [linkedWorkspaces, workspaceProjects]);
+
+	// Pins are local, so their tab does not wait for the counts.
+	const hasPinned = countsQuery.data
+		? counts.pinned > 0
+		: favoritePageIds.length > 0 && !archived;
 	const tabs = useMemo(
 		() =>
-			TABS.filter(
-				(tab) =>
-					(tab.value !== "pinned" && tab.value !== "shared") ||
-					counts[tab.value] > 0 ||
-					scope === tab.value,
-			),
-		[counts, scope],
+			TABS.filter((tab) => {
+				if (scope === tab.value) return true;
+				if (tab.value === "pinned") return hasPinned;
+				if (tab.value === "shared") return counts.shared > 0;
+				return true;
+			}),
+		[counts, scope, hasPinned],
 	);
 
 	const hasFilters =
 		Boolean(search.trim()) ||
 		scope !== "all" ||
 		authorId !== null ||
-		workspaceId !== null;
+		workspaceId !== null ||
+		projectId !== null;
 	// From the list, not the counts: those arrive on their own query, and a
 	// zero default while they are in flight would blank a loaded grid.
 	const orgEmpty =
-		!hasFilters && !pages.isPending && !pages.error && items.length === 0;
+		!hasFilters &&
+		!archived &&
+		!pages.isPending &&
+		!pages.error &&
+		items.length === 0;
 
 	return (
 		<div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto">
@@ -234,8 +333,11 @@ export function PagesList({
 
 				<div className="mt-6 flex flex-wrap items-center justify-between gap-2">
 					<Tabs
-						value={scope}
-						onValueChange={(value) => onScopeChange(value as PageScope)}
+						value={archived ? ARCHIVED_TAB : scope}
+						onValueChange={(value) => {
+							if (value === ARCHIVED_TAB) showArchived();
+							else onScopeChange(value as PageScope);
+						}}
 					>
 						<TabsList className="h-8 gap-1 bg-transparent p-0">
 							{tabs.map((tab) => (
@@ -245,17 +347,32 @@ export function PagesList({
 									className="h-8 rounded-md px-3 data-[state=active]:bg-accent data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground"
 								>
 									<span className="text-sm">{tabLabels[tab.value]}</span>
-									{!orgEmpty && (
+									{!orgEmpty && !archived && (
 										<span className="ml-1 text-muted-foreground text-xs tabular-nums">
 											{counts[tab.value]}
 										</span>
 									)}
 								</TabsTrigger>
 							))}
+							<TabsTrigger
+								value={ARCHIVED_TAB}
+								className="h-8 rounded-md px-3 data-[state=active]:bg-accent data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground/70"
+							>
+								<span className="text-sm">
+									<Trans>Archived</Trans>
+								</span>
+							</TabsTrigger>
 						</TabsList>
 					</Tabs>
 
-					<div className="flex items-center gap-2">
+					<div className="flex flex-wrap items-center gap-2">
+						{(projectOptions.length > 0 || projectId !== null) && (
+							<ProjectFilter
+								value={projectId}
+								options={projectOptions}
+								onChange={onProjectChange}
+							/>
+						)}
 						{(workspaceOptions.length > 0 || workspaceId !== null) && (
 							<WorkspaceFilter
 								value={workspaceId}
@@ -293,8 +410,17 @@ export function PagesList({
 					isPending={pages.isPending}
 					error={items.length === 0 ? pages.error?.message : undefined}
 					hasFilters={!orgEmpty && hasFilters}
+					archived={archived}
 					onOpen={onOpenPage}
 					onTogglePin={onTogglePin}
+					onSetArchived={async (pageId, next) => {
+						await setPageArchived.mutateAsync({ id: pageId, archived: next });
+						toast.success(
+							next
+								? t({ message: "Page archived" })
+								: t({ message: "Page unarchived" }),
+						);
+					}}
 					onDelete={async (pageId) => {
 						await deletePage.mutateAsync({ id: pageId });
 						toast.success(

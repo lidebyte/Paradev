@@ -22,6 +22,7 @@ import {
 } from "renderer/lib/host-service-client";
 import superjson from "superjson";
 import { electronReactClient } from "../../lib/trpc-client";
+import { isRestorablePageCounts } from "./utils/isRestorablePageCounts";
 
 // In Electron, blurring the BrowserWindow keeps document.visibilityState
 // "visible", so React Query's default visibilitychange listener never fires.
@@ -41,6 +42,8 @@ focusManager.setEventListener((handleFocus) => {
 
 // Bump when query response shapes change — invalidates the persisted cache.
 const PERSIST_BUSTER = "v2";
+
+const PERSIST_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 // Shared QueryClient for tRPC hooks and router loaders
 const queryClient = new QueryClient({
@@ -103,7 +106,14 @@ const PERSIST_KEY_PREFIXES = new Set([
 // tRPC queries persisted by procedure path: the host roster, so the sidebar
 // fans out to remote hosts on a cold or offline boot before the cloud answers,
 // and the cloud workspace list, so the Cloud section draws before it does.
+// The page counts are persisted too, so the Pages tabs and filters do not wait
+// for them, but only the variant isRestorablePageCounts allows.
 const PERSIST_TRPC_PATHS = new Set(["host.roster", "cloudWorkspace.list"]);
+// A restored query with no observer is collected after the default five
+// minutes, which would drop the counts before Pages is first opened.
+queryClient.setQueryDefaults([["page", "counts"]], {
+	gcTime: PERSIST_MAX_AGE_MS,
+});
 
 export function ElectronTRPCProvider({
 	children,
@@ -120,7 +130,7 @@ export function ElectronTRPCProvider({
 					client={queryClient}
 					persistOptions={{
 						persister,
-						maxAge: 24 * 60 * 60 * 1000, // 24h
+						maxAge: PERSIST_MAX_AGE_MS,
 						buster: PERSIST_BUSTER,
 						dehydrateOptions: {
 							shouldDehydrateQuery: (query) => {
@@ -130,9 +140,17 @@ export function ElectronTRPCProvider({
 								if (typeof head === "string") {
 									return PERSIST_KEY_PREFIXES.has(head);
 								}
-								return (
-									Array.isArray(head) && PERSIST_TRPC_PATHS.has(head.join("."))
-								);
+								if (!Array.isArray(head)) return false;
+								const path = head.join(".");
+								if (path === "page.counts") {
+									return isRestorablePageCounts({
+										queryKey: query.queryKey,
+										dataUpdatedAt: query.state.dataUpdatedAt,
+										now: Date.now(),
+										maxAgeMs: PERSIST_MAX_AGE_MS,
+									});
+								}
+								return PERSIST_TRPC_PATHS.has(path);
 							},
 						},
 					}}

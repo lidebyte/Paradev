@@ -5924,6 +5924,9 @@ msgstr "No se pudo añadir el repositorio"
 msgid "Could not answer the agent"
 msgstr "No se pudo responder al agente"
 
+msgid "Could not archive this page"
+msgstr "No se pudo archivar esta página"
+
 msgid "Could not attach files"
 msgstr "No se pudieron adjuntar los archivos"
 
@@ -6224,6 +6227,9 @@ msgstr "No se pudo sincronizar"
 
 msgid "Could not take a screenshot"
 msgstr "No se pudo hacer la captura"
+
+msgid "Could not unarchive this page"
+msgstr "No se pudo desarchivar esta página"
 
 msgid "Could not undo"
 msgstr "No se pudo deshacer"
@@ -9156,6 +9162,9 @@ msgstr "Filtrar por @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filtrar por autor: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filtrar por proyecto: {label}"
 
 msgid "Filter by reviews"
 msgstr "Filtrar por revisiones"
@@ -13009,6 +13018,9 @@ msgstr "Aún no hay claves de API."
 msgid "No archived automations"
 msgstr "No hay automatizaciones archivadas"
 
+msgid "No archived pages"
+msgstr "No hay páginas archivadas"
+
 msgid "No archived workspaces"
 msgstr "No hay espacios de trabajo archivados"
 
@@ -14904,6 +14916,9 @@ msgstr "Página"
 msgid "Page actions"
 msgstr "Acciones de la página"
 
+msgid "Page archived"
+msgstr "Página archivada"
+
 msgid "Page by you"
 msgstr "Página creada por ti"
 
@@ -14937,6 +14952,9 @@ msgstr "El límite de velocidad de denuncias de páginas no está configurado"
 msgid "Page title"
 msgstr "Título de la página"
 
+msgid "Page unarchived"
+msgstr "Página desarchivada"
+
 msgid "Pages"
 msgstr "Páginas"
 
@@ -14951,6 +14969,9 @@ msgstr "Páginas que guardan respuestas"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Páginas cuyos comentarios observa este agente"
+
+msgid "Pages you archive are kept here."
+msgstr "Las páginas que archives se guardan aquí."
 
 msgid "pagination"
 msgstr "paginación"

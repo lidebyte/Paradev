@@ -1826,6 +1826,16 @@
 			"options": [],
 			"args": []
 		},
+		"pages archive": {
+			"runnable": true,
+			"options": [],
+			"args": [
+				{
+					"name": "page",
+					"required": true
+				}
+			]
+		},
 		"pages comments": {
 			"runnable": false,
 			"aliases": ["comment"],
@@ -1944,6 +1954,12 @@
 		"pages list": {
 			"runnable": true,
 			"options": [
+				{
+					"name": "archived",
+					"aliases": [],
+					"type": "boolean",
+					"required": false
+				},
 				{
 					"name": "cursor",
 					"aliases": [],
@@ -2071,6 +2087,16 @@
 					"required": false
 				}
 			],
+			"args": [
+				{
+					"name": "page",
+					"required": true
+				}
+			]
+		},
+		"pages unarchive": {
+			"runnable": true,
+			"options": [],
 			"args": [
 				{
 					"name": "page",

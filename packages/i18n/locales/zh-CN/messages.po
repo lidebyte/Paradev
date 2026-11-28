@@ -5924,6 +5924,9 @@ msgstr "无法添加仓库"
 msgid "Could not answer the agent"
 msgstr "无法回复智能体"
 
+msgid "Could not archive this page"
+msgstr "无法归档此页面"
+
 msgid "Could not attach files"
 msgstr "无法添加附件"
 
@@ -6224,6 +6227,9 @@ msgstr "无法同步"
 
 msgid "Could not take a screenshot"
 msgstr "无法截图"
+
+msgid "Could not unarchive this page"
+msgstr "无法取消归档此页面"
 
 msgid "Could not undo"
 msgstr "无法撤销"
@@ -9156,6 +9162,9 @@ msgstr "按@{normalizedSearch}筛选"
 
 msgid "Filter by author: {label}"
 msgstr "按作者筛选：{label}"
+
+msgid "Filter by project: {label}"
+msgstr "按项目筛选：{label}"
 
 msgid "Filter by reviews"
 msgstr "按审查筛选"
@@ -13009,6 +13018,9 @@ msgstr "暂无API密钥。"
 msgid "No archived automations"
 msgstr "没有已归档的自动化"
 
+msgid "No archived pages"
+msgstr "没有已归档的页面"
+
 msgid "No archived workspaces"
 msgstr "没有已归档的工作区"
 
@@ -14904,6 +14916,9 @@ msgstr "页面"
 msgid "Page actions"
 msgstr "页面操作"
 
+msgid "Page archived"
+msgstr "页面已归档"
+
 msgid "Page by you"
 msgstr "你创建的页面"
 
@@ -14937,6 +14952,9 @@ msgstr "未配置页面举报的速率限制"
 msgid "Page title"
 msgstr "页面标题"
 
+msgid "Page unarchived"
+msgstr "页面已取消归档"
+
 msgid "Pages"
 msgstr "页面"
 
@@ -14951,6 +14969,9 @@ msgstr "能保存答案的页面"
 
 msgid "Pages this agent is watching for comments"
 msgstr "此智能体正在关注这些页面的评论"
+
+msgid "Pages you archive are kept here."
+msgstr "你归档的页面会保留在这里。"
 
 msgid "pagination"
 msgstr "分页"

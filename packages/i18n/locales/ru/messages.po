@@ -5924,6 +5924,9 @@ msgstr "Не удалось добавить репозиторий"
 msgid "Could not answer the agent"
 msgstr "Не удалось ответить агенту"
 
+msgid "Could not archive this page"
+msgstr "Не удалось архивировать эту страницу"
+
 msgid "Could not attach files"
 msgstr "Не удалось прикрепить файлы"
 
@@ -6224,6 +6227,9 @@ msgstr "Не удалось синхронизировать"
 
 msgid "Could not take a screenshot"
 msgstr "Не удалось сделать скриншот"
+
+msgid "Could not unarchive this page"
+msgstr "Не удалось разархивировать эту страницу"
 
 msgid "Could not undo"
 msgstr "Не удалось отменить"
@@ -9156,6 +9162,9 @@ msgstr "Фильтр по @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Фильтр по автору: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Фильтр по проекту: {label}"
 
 msgid "Filter by reviews"
 msgstr "Фильтр по ревью"
@@ -13009,6 +13018,9 @@ msgstr "Ключей API пока нет."
 msgid "No archived automations"
 msgstr "Нет архивированных автоматизаций"
 
+msgid "No archived pages"
+msgstr "Нет архивных страниц"
+
 msgid "No archived workspaces"
 msgstr "Нет архивированных рабочих областей"
 
@@ -14904,6 +14916,9 @@ msgstr "Страница"
 msgid "Page actions"
 msgstr "Действия со страницей"
 
+msgid "Page archived"
+msgstr "Страница архивирована"
+
 msgid "Page by you"
 msgstr "Ваша страница"
 
@@ -14937,6 +14952,9 @@ msgstr "Ограничение частоты жалоб на страницы �
 msgid "Page title"
 msgstr "Заголовок страницы"
 
+msgid "Page unarchived"
+msgstr "Страница разархивирована"
+
 msgid "Pages"
 msgstr "Страницы"
 
@@ -14951,6 +14969,9 @@ msgstr "Страницы, которые сохраняют ответы"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Страницы, за комментариями на которых следит этот агент"
+
+msgid "Pages you archive are kept here."
+msgstr "Архивированные страницы хранятся здесь."
 
 msgid "pagination"
 msgstr "постраничная навигация"

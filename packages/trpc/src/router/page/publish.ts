@@ -26,6 +26,7 @@ import { pageUrl } from "./page-url";
 import {
 	isEntryPathConflict,
 	isVersionConflict,
+	republishPatch,
 	titleFromFilename,
 } from "./publish-rules";
 import type { PublishPageInput } from "./schema";
@@ -567,14 +568,9 @@ async function applyMetadata({
 	page: SelectPage;
 	input: PublishPageInput;
 }): Promise<SelectPage> {
-	const patch: Partial<SelectPage> = { updatedAt: new Date() };
-	if (input.title !== undefined) patch.title = input.title;
-	if (input.description !== undefined) patch.description = input.description;
-	if (input.visibility !== undefined) patch.visibility = input.visibility;
-
 	const [updated] = await tx
 		.update(pages)
-		.set(patch)
+		.set(republishPatch(input, new Date()))
 		.where(eq(pages.id, page.id))
 		.returning();
 	return updated ?? page;

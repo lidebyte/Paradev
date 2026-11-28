@@ -5924,6 +5924,9 @@ msgstr "Kan repository niet toevoegen"
 msgid "Could not answer the agent"
 msgstr "Kan de agent niet antwoorden"
 
+msgid "Could not archive this page"
+msgstr "Kan deze pagina niet archiveren"
+
 msgid "Could not attach files"
 msgstr "Kan bestanden niet toevoegen"
 
@@ -6224,6 +6227,9 @@ msgstr "Kan niet synchroniseren"
 
 msgid "Could not take a screenshot"
 msgstr "Kan geen screenshot maken"
+
+msgid "Could not unarchive this page"
+msgstr "Kan het archiveren van deze pagina niet ongedaan maken"
 
 msgid "Could not undo"
 msgstr "Ongedaan maken mislukt"
@@ -9156,6 +9162,9 @@ msgstr "Filteren op @{normalizedSearch}"
 
 msgid "Filter by author: {label}"
 msgstr "Filteren op auteur: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Filteren op project: {label}"
 
 msgid "Filter by reviews"
 msgstr "Filteren op reviews"
@@ -13009,6 +13018,9 @@ msgstr "Nog geen API-sleutels."
 msgid "No archived automations"
 msgstr "Geen gearchiveerde automatiseringen"
 
+msgid "No archived pages"
+msgstr "Geen gearchiveerde pagina’s"
+
 msgid "No archived workspaces"
 msgstr "Geen gearchiveerde werkruimtes"
 
@@ -14904,6 +14916,9 @@ msgstr "Pagina"
 msgid "Page actions"
 msgstr "Pagina-acties"
 
+msgid "Page archived"
+msgstr "Pagina gearchiveerd"
+
 msgid "Page by you"
 msgstr "Pagina van jou"
 
@@ -14937,6 +14952,9 @@ msgstr "Rate limiting voor paginarapportages is niet geconfigureerd"
 msgid "Page title"
 msgstr "Paginatitel"
 
+msgid "Page unarchived"
+msgstr "Pagina uit archief gehaald"
+
 msgid "Pages"
 msgstr "Pagina's"
 
@@ -14951,6 +14969,9 @@ msgstr "Pagina's die antwoorden opslaan"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Pagina's die deze agent volgt voor reacties"
+
+msgid "Pages you archive are kept here."
+msgstr "Pagina’s die je archiveert, worden hier bewaard."
 
 msgid "pagination"
 msgstr "paginering"

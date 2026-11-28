@@ -5924,6 +5924,9 @@ msgstr "Depo eklenemedi"
 msgid "Could not answer the agent"
 msgstr "Ajana yanıt verilemedi"
 
+msgid "Could not archive this page"
+msgstr "Bu sayfa arşivlenemedi"
+
 msgid "Could not attach files"
 msgstr "Dosyalar eklenemedi"
 
@@ -6224,6 +6227,9 @@ msgstr "Eşitlenemedi"
 
 msgid "Could not take a screenshot"
 msgstr "Ekran görüntüsü alınamadı"
+
+msgid "Could not unarchive this page"
+msgstr "Bu sayfa arşivden çıkarılamadı"
 
 msgid "Could not undo"
 msgstr "Geri alınamadı"
@@ -9156,6 +9162,9 @@ msgstr "@{normalizedSearch} ile filtrele"
 
 msgid "Filter by author: {label}"
 msgstr "Yazara göre filtrele: {label}"
+
+msgid "Filter by project: {label}"
+msgstr "Projeye göre filtrele: {label}"
 
 msgid "Filter by reviews"
 msgstr "İncelemeye göre filtrele"
@@ -13009,6 +13018,9 @@ msgstr "Henüz API anahtarı yok."
 msgid "No archived automations"
 msgstr "Arşivlenmiş otomasyon yok"
 
+msgid "No archived pages"
+msgstr "Arşivlenmiş sayfa yok"
+
 msgid "No archived workspaces"
 msgstr "Arşivlenmiş çalışma alanı yok"
 
@@ -14904,6 +14916,9 @@ msgstr "Sayfa"
 msgid "Page actions"
 msgstr "Sayfa işlemleri"
 
+msgid "Page archived"
+msgstr "Sayfa arşivlendi"
+
 msgid "Page by you"
 msgstr "Sizin sayfanız"
 
@@ -14937,6 +14952,9 @@ msgstr "Sayfa bildirimi hız sınırı yapılandırılmamış"
 msgid "Page title"
 msgstr "Sayfa başlığı"
 
+msgid "Page unarchived"
+msgstr "Sayfa arşivden çıkarıldı"
+
 msgid "Pages"
 msgstr "Sayfalar"
 
@@ -14951,6 +14969,9 @@ msgstr "Yanıtları kaydeden sayfalar"
 
 msgid "Pages this agent is watching for comments"
 msgstr "Bu ajanın yorumlar için izlediği sayfalar"
+
+msgid "Pages you archive are kept here."
+msgstr "Arşivlediğiniz sayfalar burada saklanır."
 
 msgid "pagination"
 msgstr "sayfalama"
