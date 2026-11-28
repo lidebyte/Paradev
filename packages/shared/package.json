@@ -578,6 +578,10 @@
 			"types": "./src/themes/types.ts",
 			"default": "./src/themes/types.ts"
 		},
+		"./plugins/bundled-skills": {
+			"types": "./src/plugins/bundled-skills.generated.ts",
+			"default": "./src/plugins/bundled-skills.generated.ts"
+		},
 		"./plugins/bundle": {
 			"types": "./src/plugins/bundle.ts",
 			"default": "./src/plugins/bundle.ts"

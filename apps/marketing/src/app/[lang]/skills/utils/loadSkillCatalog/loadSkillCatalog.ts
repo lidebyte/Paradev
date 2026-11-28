@@ -1,13 +1,9 @@
 import matter from "gray-matter";
 import { cacheLife } from "next/cache";
-import {
-	fetchSkill,
-	SKILL_NAMES,
-	type SkillName,
-} from "@/app/.well-known/agent-skills/skills-source";
+import { fetchSkill, SKILL_NAMES, skillUrl } from "@/lib/skills-source";
 
 export interface SkillEntry {
-	name: SkillName;
+	name: string;
 	summary: string;
 	url: string;
 }
@@ -28,7 +24,7 @@ export async function loadSkillCatalog(): Promise<SkillEntry[]> {
 			return {
 				name,
 				summary: firstSentence(description),
-				url: `/.well-known/agent-skills/${name}/SKILL.md`,
+				url: skillUrl(name),
 			};
 		}),
 	);

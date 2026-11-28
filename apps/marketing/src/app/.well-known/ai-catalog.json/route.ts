@@ -2,7 +2,7 @@ import { BRAND } from "@superset/shared/brand";
 import { COMPANY } from "@superset/shared/constants";
 import { AGENT_DID } from "@/lib/agent-identity";
 import { API_URL, MCP_SERVER_URL } from "@/lib/llms";
-import { SKILL_NAMES } from "../agent-skills/skills-source";
+import { SKILL_NAMES, skillUrl } from "@/lib/skills-source";
 
 const TRUST = { identity: AGENT_DID, identityType: "did" } as const;
 
@@ -82,8 +82,8 @@ export function GET() {
 			identifier: urn("skill", name),
 			displayName: name,
 			type: "application/ai-skill+md",
-			url: `${baseUrl}/.well-known/agent-skills/${name}/SKILL.md`,
-			description: `Agent skill: ${name.replace(/^superset-/, "")} with the ${BRAND.NAME} CLI and MCP server.`,
+			url: `${baseUrl}${skillUrl(name)}`,
+			description: `Agent skill: ${name.replace(/^(paradev|superset)-/, "")} with the ${BRAND.NAME} CLI and MCP server.`,
 			tags: ["skill", "superset"],
 			trustManifest: TRUST,
 		})),

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import matter from "gray-matter";
-import { fetchSkill, SKILL_NAMES } from "../skills-source";
+import { fetchSkill, SKILL_NAMES, skillUrl } from "@/lib/skills-source";
 
 export async function GET() {
 	const skills = (
@@ -14,7 +14,7 @@ export async function GET() {
 					name,
 					type: "skill-md",
 					description: data.description,
-					url: `/.well-known/agent-skills/${name}/SKILL.md`,
+					url: skillUrl(name),
 					files: ["SKILL.md"],
 					digest: `sha256:${digest}`,
 				};
